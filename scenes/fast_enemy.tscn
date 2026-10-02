@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://3bru522x0c3u"]
+
+[ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_7dcje"]
+[ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_lpnxe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48uji"]
+atlas = ExtResource("2_lpnxe")
+region = Rect2(320, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s8mdy"]
+atlas = ExtResource("2_lpnxe")
+region = Rect2(336, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntp8x"]
+atlas = ExtResource("2_lpnxe")
+region = Rect2(352, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcg03"]
+atlas = ExtResource("2_lpnxe")
+region = Rect2(368, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e6q6n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48uji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s8mdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ntp8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rcg03")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 18.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6q6n"]
+size = Vector2(9, 11)
+
+[node name="fast_enemy" type="CharacterBody2D" unique_id=1614132443]
+script = ExtResource("1_7dcje")
+speed = 150.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460907431]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_e6q6n")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=295384910]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_e6q6n")
