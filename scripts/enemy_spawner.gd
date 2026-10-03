@@ -4,7 +4,7 @@ extends Node2D
 @export var spawn_radius: float = 400.0
 
 var current_wave_index: int = 0
-var wave_spawn_queue: Array[PackedScene] = []
+var active_spawn_groups: int = 0
 var player: CharacterBody2D
 
 @onready var spawn_timer: Timer = $SpawnTimer
@@ -13,7 +13,6 @@ var player: CharacterBody2D
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
 	
-	spawn_timer.timeout.connect(_on_spawn_timer_timeout)
 	wave_timer.timeout.connect(_on_wave_timer_timeout)
 	
 	if waves.size() > 0:
@@ -26,24 +25,29 @@ func start_wave() -> void:
 		
 	var current_wave: WaveData = waves[current_wave_index]
 	
-	wave_spawn_queue.clear()
+	active_spawn_groups = current_wave.enemies.size()
+	
 	for config in current_wave.enemies:
 		if config and config.enemy_scene:
-			for i in range(config.count):
-				wave_spawn_queue.append(config.enemy_scene)
+			spawn_enemy_group(config)
+		else:
+			active_spawn_groups -= 1
 			
-	spawn_timer.wait_time = current_wave.spawn_interval
-	spawn_timer.start()
+	if active_spawn_groups <= 0:
+		wave_timer.start(current_wave.time_after_wave)
 	
-func  _on_spawn_timer_timeout() -> void:
-	if not wave_spawn_queue.is_empty():
-		var next_enemy: PackedScene = wave_spawn_queue.pop_front()
-		spawn_enemy(next_enemy)
-	else:
-		spawn_timer.stop()
+
+func spawn_enemy_group(config: EnemyConfig) -> void:
+	for i in range(config.count):
+		spawn_enemy(config.enemy_scene)
+		
+		await get_tree().create_timer(config.spawn_interval).timeout
+		
+	active_spawn_groups -= 1
+	if active_spawn_groups == 0:
 		var current_wave: WaveData = waves[current_wave_index]
 		wave_timer.start(current_wave.time_after_wave)
-		
+
 func _on_wave_timer_timeout() -> void:
 	current_wave_index += 1
 	start_wave()

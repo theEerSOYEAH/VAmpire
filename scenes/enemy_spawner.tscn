@@ -3,16 +3,9 @@
 [ext_resource type="Script" uid="uid://cctgbw3nhonub" path="res://scripts/enemy_spawner.gd" id="1_ks1gq"]
 [ext_resource type="Script" uid="uid://dkql1ar7yeotw" path="res://scripts/WaveData.gd" id="2_ih16b"]
 [ext_resource type="Script" uid="uid://nrlpxynp14r7" path="res://EnemyConfig.gd" id="3_31irv"]
-[ext_resource type="PackedScene" uid="uid://b1qf8ch78m6dd" path="res://scenes/enemy.tscn" id="4_txvhj"]
-
-[sub_resource type="Resource" id="Resource_tefeu"]
-script = ExtResource("3_31irv")
-enemy_scene = ExtResource("4_txvhj")
-metadata/_custom_type_script = "uid://nrlpxynp14r7"
 
 [sub_resource type="Resource" id="Resource_tbgi4"]
 script = ExtResource("2_ih16b")
-enemy_types = Array[ExtResource("3_31irv")]([SubResource("Resource_tefeu")])
 metadata/_custom_type_script = "uid://dkql1ar7yeotw"
 
 [node name="EnemySpawner" type="Node2D" unique_id=4830297]
