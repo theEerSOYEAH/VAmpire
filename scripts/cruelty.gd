@@ -6,6 +6,7 @@ extends CharacterBody2D
 @export var max_health: float = 10.0
 @onready var muzzle: Marker2D = $Muzzle
 @onready var shoot_timer: Timer = $ShootTimer
+@onready var charge_sprite: Sprite2D = $Muzzle/ChargeSprite
 
 var current_health: float = 10.0
 var speed: float = 100.0
@@ -14,12 +15,24 @@ var player = null
 func  _ready() -> void:
 	current_health = max_health
 	player = get_tree().current_scene.find_child("player", true, false)
-	shoot_timer.timeout.connect(shoot)
+	shoot_timer.timeout.connect(start_charge)
+
+func start_charge() -> void:
+	charge_sprite.visible = true
+	charge_sprite.scale = Vector2(2.0, 2.0)
 	
+	var tween = create_tween()
+	
+	tween.tween_property(charge_sprite, "scale", Vector2(0.5, 0.5), 0.5)
+	
+	tween.finished.connect(shoot)
+
+@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	if not is_instance_valid(player):
 		return
-		
+	
+	
 	var direction = global_position.direction_to(player.global_position)
 	var distance = global_position.distance_to(player.global_position)
 	
@@ -32,12 +45,16 @@ func _physics_process(delta: float) -> void:
 	
 	if direction.x > 0:
 		$AnimatedSprite2D.flip_h = false
+		$Muzzle.position.x = 7.0
 	elif direction.x < 0:
 		$AnimatedSprite2D.flip_h = true
+		$Muzzle.position.x = -7.0
 		
 	move_and_slide()
 	
 func  shoot() -> void:
+	charge_sprite.visible = false
+	
 	if not is_instance_valid(player) or not projectile_scene:
 		return
 	
@@ -56,6 +73,8 @@ func take_damage(amount: int) -> void:
 		die()
 
 func die() -> void:
+	$AnimatedSprite2D.play("die")
+	await $AnimatedSprite2D.animation_finished
 	queue_free()
 
 		
