@@ -2,6 +2,11 @@ extends CharacterBody2D
 
 @onready var cooldown_label: Label = $Label
 
+@export var shoot_cooldown = 0.4
+var shoot_timer = 0
+
+@export var bullet_scene: PackedScene
+@onready var muzzle: Marker2D =  $hand/Muzzle
 
 var speed = 200
 var dash_speed = 800
@@ -20,16 +25,26 @@ func _physics_process(delta):
 		 "up",
 		 "down"
 		)
-
+	
+	if direction.x > 0:
+		$AnimatedSprite2D.flip_h = false
+	elif  direction.x < 0:
+		$AnimatedSprite2D.flip_h = true
+	
+	if shoot_timer > 0:
+		shoot_timer -= delta
+	
 	if cooldown_timer > 0:
 		cooldown_timer -= delta
 		cooldown_label.text = "%.1f" %cooldown_timer
 	else:
 		cooldown_label.text = ""
 
+	if Input.is_action_pressed("shoot") and shoot_timer <= 0:
+		shoot()
+		shoot_timer = shoot_cooldown
 
-
-	if Input.is_action_just_pressed("ui_dash"):
+	if Input.is_action_just_pressed("dash"):
 		if direction != Vector2.ZERO and cooldown_timer <= 0:
 			dash_direction = direction
 			dash_timer = dash_time
@@ -42,3 +57,16 @@ func _physics_process(delta):
 		velocity = direction * speed
 
 	move_and_slide()
+	
+func shoot():
+	if not bullet_scene:
+		return
+	
+	var bullet = bullet_scene.instantiate()
+	
+	bullet.global_position = muzzle.global_position
+	
+	bullet.look_at(get_global_mouse_position())
+	
+	get_tree().current_scene.add_child(bullet)
+	$Camera2D.shake()
