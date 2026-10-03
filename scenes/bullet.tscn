@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://dwixbq018e4gy"]
+
+[ext_resource type="Script" uid="uid://ckae7hpyabxeh" path="res://scripts/bullet.gd" id="1_y25gk"]
+[ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_l5glv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoqba"]
+atlas = ExtResource("2_l5glv")
+region = Rect2(99, 308, 11, 11)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e6q6n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoqba")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6q6n"]
+size = Vector2(7, 4)
+
+[node name="bullet" type="Area2D" unique_id=137864882]
+modulate = Color(1.6119872, 1.1938294, 1.1938294, 1)
+script = ExtResource("1_y25gk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1324750100]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_e6q6n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1712159762]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_e6q6n")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=709977187]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
