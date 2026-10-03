@@ -22,6 +22,18 @@ region = Rect2(112, 80, 16, 16)
 atlas = ExtResource("2_4ra3w")
 region = Rect2(128, 80, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_md0e3"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(80, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md484"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(96, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ra3w"]
+atlas = ExtResource("2_4ra3w")
+region = Rect2(96, 96, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_e6q6n"]
 animations = [{
 "frames": [{
@@ -40,6 +52,25 @@ animations = [{
 "loop": 1,
 "name": &"default",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md0e3")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_md484")
+}],
+"loop": 0,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ra3w")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fc75"]
@@ -58,6 +89,7 @@ shape = SubResource("RectangleShape2D_e6q6n")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1498385887]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_e6q6n")
+animation = &"die"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=33104795]
