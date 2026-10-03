@@ -2,9 +2,17 @@
 
 [ext_resource type="Script" uid="uid://cekump4k220nl" path="res://scripts/cruelty_projectile.gd" id="1_k4cvo"]
 [ext_resource type="Texture2D" uid="uid://rtbk5vhtk2wb" path="res://addons/projectile.png" id="2_fgses"]
+[ext_resource type="Script" uid="uid://draf2kk50w4m8" path="res://scripts/trail.gd" id="3_fgses"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8fc75"]
 radius = 3.0
+
+[sub_resource type="Curve" id="Curve_w4iq3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_flfb1"]
+colors = PackedColorArray(0.44297108, 0.012920001, 0.012920001, 0, 0.44297108, 0.012920001, 0.012920001, 1)
 
 [node name="CrueltyProjectile" type="Area2D" unique_id=964695871]
 script = ExtResource("1_k4cvo")
@@ -16,5 +24,15 @@ texture = ExtResource("2_fgses")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1274162157]
 position = Vector2(0.49568367, 0.630394)
 shape = SubResource("CircleShape2D_8fc75")
+
+[node name="Trail" type="Line2D" parent="." unique_id=101708815]
+top_level = true
+width = 5.0
+width_curve = SubResource("Curve_w4iq3")
+gradient = SubResource("Gradient_flfb1")
+joint_mode = 2
+begin_cap_mode = 2
+script = ExtResource("3_fgses")
+max_length = 4
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
