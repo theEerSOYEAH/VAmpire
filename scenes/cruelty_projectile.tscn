@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cjl4br4x4lamk"]
+
+[ext_resource type="Script" uid="uid://cekump4k220nl" path="res://scripts/cruelty_projectile.gd" id="1_k4cvo"]
+[ext_resource type="Texture2D" uid="uid://rtbk5vhtk2wb" path="res://addons/projectile.png" id="2_fgses"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8fc75"]
+radius = 3.0
+
+[node name="CrueltyProjectile" type="Area2D" unique_id=964695871]
+script = ExtResource("1_k4cvo")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1973218050]
+texture_filter = 1
+texture = ExtResource("2_fgses")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1274162157]
+position = Vector2(0.49568367, 0.630394)
+shape = SubResource("CircleShape2D_8fc75")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
