@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://chk0cyqkanury"]
 
-[ext_resource type="Script" uid="uid://c06dpxr72thxn" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://ca6bbeamjphc4" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://cbn2ehehgi45s" path="res://assets/ROBO_WITHOUT HANDS.png" id="2_g2els"]
 [ext_resource type="Script" uid="uid://cj2emipxg48vs" path="res://scripts/camera_2d.gd" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://velb87kfafsj" path="res://scripts/hand.gd" id="3_dqkch"]
+[ext_resource type="Texture2D" uid="uid://18a45nts14nr" path="res://icon.svg" id="4_qlg0r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("2_g2els")
@@ -82,16 +84,31 @@ script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=797897448]
 texture_filter = 1
+position = Vector2(-1, -7)
 sprite_frames = SubResource("SpriteFrames_e6q6n")
 animation = &"Move"
 autoplay = "idle"
 frame_progress = 0.75631374
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1409856519]
-position = Vector2(0, 7.5)
 shape = SubResource("RectangleShape2D_e6q6n")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1393552562]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 script = ExtResource("3_qhqgy")
+
+[node name="Label" type="Label" parent="." unique_id=1463887823]
+offset_left = -15.0
+offset_top = -34.0
+offset_right = 18.0
+offset_bottom = -11.0
+
+[node name="hand" type="Node2D" parent="." unique_id=564756876]
+position = Vector2(1, 0)
+script = ExtResource("3_dqkch")
+
+[node name="Sprite2D" type="Sprite2D" parent="hand" unique_id=1125404981]
+position = Vector2(13.000001, 1)
+scale = Vector2(0.06445316, 0.062499996)
+texture = ExtResource("4_qlg0r")
