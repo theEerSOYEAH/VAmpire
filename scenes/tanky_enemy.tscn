@@ -45,6 +45,7 @@ size = Vector2(8, 14)
 [node name="tanky_enemy" type="CharacterBody2D" unique_id=983673362]
 script = ExtResource("1_vfn1x")
 speed = 75.0
+max_health = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=395428702]
 texture_filter = 1

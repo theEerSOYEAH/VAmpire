@@ -44,7 +44,8 @@ size = Vector2(9, 11)
 
 [node name="fast_enemy" type="CharacterBody2D" unique_id=1614132443]
 script = ExtResource("1_7dcje")
-speed = 150.0
+speed = 175.0
+max_health = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1460907431]
 texture_filter = 1
