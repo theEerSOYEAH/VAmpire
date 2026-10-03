@@ -12,6 +12,9 @@ func _on_body_entered(body: Node2D) -> void:
 	
 	if body.has_method("take_damage"):
 		body.take_damage(damage)
+		
+		if body.has_method("apply_knockback"):
+			body.apply_knockback(global_position)
 		queue_free()
 	else:
 		queue_free()
