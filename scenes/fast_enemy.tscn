@@ -42,6 +42,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e6q6n"]
 size = Vector2(9, 11)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7dcje"]
+size = Vector2(8, 14)
+
 [node name="fast_enemy" type="CharacterBody2D" unique_id=1614132443]
 script = ExtResource("1_7dcje")
 speed = 175.0
@@ -55,3 +58,11 @@ autoplay = "default"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=295384910]
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_e6q6n")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1544791933]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1661571504]
+shape = SubResource("RectangleShape2D_7dcje")
+
+[node name="DamageTimer" type="Timer" parent="." unique_id=991287748]
+wait_time = 0.5

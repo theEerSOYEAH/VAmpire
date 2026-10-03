@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_4ra3w"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6q6n"]
+size = Vector2(8, 14)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_5uy6h"]
 atlas = ExtResource("2_4ra3w")
 region = Rect2(80, 80, 16, 16)
@@ -47,6 +50,11 @@ motion_mode = 1
 script = ExtResource("1_md0e3")
 max_health = 20.0
 
+[node name="Hitbox" type="Area2D" parent="." unique_id=115448792]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=463635005]
+shape = SubResource("RectangleShape2D_e6q6n")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1498385887]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_e6q6n")
@@ -54,3 +62,10 @@ autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=33104795]
 shape = SubResource("RectangleShape2D_8fc75")
+
+[node name="DamageTimer" type="Timer" parent="." unique_id=1538074526]
+wait_time = 0.5
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="Hitbox" to="." method="_on_hitbox_body_exited"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
