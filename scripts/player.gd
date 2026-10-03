@@ -8,6 +8,9 @@ var shoot_timer = 0
 @export var bullet_scene: PackedScene
 @onready var muzzle: Marker2D =  $hand/Muzzle
 
+@export var max_health: int = 3
+var current_health: int = 3
+
 var speed = 200
 var dash_speed = 800
 var dash_time = 0.2
@@ -58,6 +61,25 @@ func _physics_process(delta):
 
 	move_and_slide()
 	
+
+func _ready() -> void:
+	current_health = max_health
+
+func take_damage(amount: int):
+	if dash_timer > 0:
+		return
+	
+	current_health -= amount
+	print("player health: ", current_health)
+	
+	if current_health <= 0:
+		die()
+	
+func die():
+	print("you died")
+	get_tree().reload_current_scene()
+
+
 func shoot():
 	if not bullet_scene:
 		return
