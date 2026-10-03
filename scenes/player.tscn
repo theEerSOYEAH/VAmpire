@@ -99,6 +99,7 @@ position = Vector2(0, -8)
 motion_mode = 1
 script = ExtResource("1_g2els")
 bullet_scene = ExtResource("2_tuyoq")
+max_health = 1000
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=797897448]
 texture_filter = 1
