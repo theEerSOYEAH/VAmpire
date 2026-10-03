@@ -1,25 +1,44 @@
 extends CharacterBody2D
 
+@onready var cooldown_label: Label = $Label
 
-@export var speed: float = 200.0
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+var speed = 200
+var dash_speed = 800
+var dash_time = 0.2
 
-func _physics_process(delta: float) -> void:
-	var input_direction := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
-	velocity = input_direction * speed
-	move_and_slide()
-	
-	if input_direction.x > 0:
-		sprite.flip_h = false
-	elif  input_direction.x < 0:
-		sprite.flip_h = true
-	
-	if input_direction != Vector2.ZERO:
-		sprite.play("Move")
+var dash_timer = 0
+var dash_direction = Vector2.ZERO
+
+var cooldown_timer = 0
+@export var dash_cooldown = 5
+
+func _physics_process(delta):
+	var direction = Input.get_vector(
+		"left",
+		 "right",
+		 "up",
+		 "down"
+		)
+
+	if cooldown_timer > 0:
+		cooldown_timer -= delta
+		cooldown_label.text = "%.1f" %cooldown_timer
 	else:
-		sprite.play("idle")
-	
-func _ready() -> void:
-	add_to_group("player")
+		cooldown_label.text = ""
+
+
+
+	if Input.is_action_just_pressed("ui_dash"):
+		if direction != Vector2.ZERO and cooldown_timer <= 0:
+			dash_direction = direction
+			dash_timer = dash_time
+			cooldown_timer = dash_cooldown
+
+	if dash_timer > 0:
+		velocity = dash_direction * dash_speed
+		dash_timer -= delta
+	else:
+		velocity = direction * speed
+
+	move_and_slide()
