@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal health_changed
+
 @onready var cooldown_label: Label = $Label
 
 @export var shoot_cooldown = 0.4
@@ -70,6 +72,7 @@ func take_damage(amount: int):
 		return
 	
 	current_health -= amount
+	health_changed.emit()
 	print("player health: ", current_health)
 	
 	if current_health <= 0:
