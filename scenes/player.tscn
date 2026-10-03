@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c06dpxr72thxn" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://cbn2ehehgi45s" path="res://assets/ROBO_WITHOUT HANDS.png" id="2_g2els"]
+[ext_resource type="Script" uid="uid://cj2emipxg48vs" path="res://scripts/camera_2d.gd" id="3_qhqgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("2_g2els")
@@ -93,3 +94,4 @@ shape = SubResource("RectangleShape2D_e6q6n")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1393552562]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
+script = ExtResource("3_qhqgy")
