@@ -20,6 +20,8 @@ func _process(delta: float) -> void:
 	else:
 		shake_offset = Vector2.ZERO
 		
+	offset = shake_offset
+		
 	
 func shake():
 	shake_timer = shake_max_time
