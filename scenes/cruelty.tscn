@@ -52,12 +52,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_litew")
 }, {
-"duration": 1.0,
+"duration": 0.5,
 "texture": SubResource("AtlasTexture_5swh5")
 }],
 "loop": 0,
 "name": &"die",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e6q6n"]
@@ -65,6 +65,8 @@ radius = 8.0
 
 [node name="cruelty" type="CharacterBody2D" unique_id=622093619]
 z_index = 1
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("1_q6gnw")
 projectile_scene = ExtResource("2_55t43")
 
