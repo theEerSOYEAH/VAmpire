@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bs0x5tlasik2j"
+path="res://.godot/imported/Roblox Doors Soundtrack Elevator Jam (Looped 10 Min) - Idiocrity (128k).mp3-8183dc5be189fdf75fa93e14b1b655f4.mp3str"
+
+[deps]
+
+source_file="res://assets/Musical Effects/Roblox Doors Soundtrack Elevator Jam (Looped 10 Min) - Idiocrity (128k).mp3"
+dest_files=["res://.godot/imported/Roblox Doors Soundtrack Elevator Jam (Looped 10 Min) - Idiocrity (128k).mp3-8183dc5be189fdf75fa93e14b1b655f4.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

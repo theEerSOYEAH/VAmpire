@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dq5y7e4scc6y6"
+path="res://.godot/imported/horror_sting.wav-45d345490dc67c4da22b3d29341013f0.sample"
+
+[deps]
+
+source_file="res://assets/Musical Effects/horror_sting.wav"
+dest_files=["res://.godot/imported/horror_sting.wav-45d345490dc67c4da22b3d29341013f0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

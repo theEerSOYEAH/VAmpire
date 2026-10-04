@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://g2m7d74oitut"
+path="res://.godot/imported/8_bit_level_start.wav-0fc77ebf30e06e33903e630247894c35.sample"
+
+[deps]
+
+source_file="res://assets/Musical Effects/8_bit_level_start.wav"
+dest_files=["res://.godot/imported/8_bit_level_start.wav-0fc77ebf30e06e33903e630247894c35.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
