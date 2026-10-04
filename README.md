@@ -8,7 +8,7 @@ You spawn in a wierd monochrome looking forest with a pistol and a gun. You need
 
 ## How To Run The Game
 
-Head over to this itch.io link -> 
+Head over to this itch.io link -> https://mubixd.itch.io/vampirity
 
 ## How To Play
 
