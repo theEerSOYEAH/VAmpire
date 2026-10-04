@@ -7,6 +7,7 @@ var current_health: float
 var player: CharacterBody2D = null
 
 func _ready() -> void:
+	add_to_group("enemy")
 	current_health = max_health
 	player = get_tree().get_first_node_in_group("player")
 
