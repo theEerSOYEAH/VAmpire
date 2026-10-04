@@ -71,6 +71,7 @@ animations = [{
 radius = 4.1231055
 
 [node name="speed potion" type="Area2D" unique_id=1170293875]
+collision_mask = 2
 script = ExtResource("1_qulrn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=930038628]
