@@ -68,9 +68,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_po753"]
-radius = 5.0
+radius = 5.8309517
 
 [node name="luck_potion" type="Area2D" unique_id=1267138234]
+collision_mask = 2
 script = ExtResource("1_rtfq4")
 duration = 677
 
