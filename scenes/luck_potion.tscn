@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://cryr1x0vf1vhr"]
+
+[ext_resource type="Script" uid="uid://do3ybduxfsw37" path="res://luck_potion.gd" id="1_rtfq4"]
+[ext_resource type="Texture2D" uid="uid://bv5x3y0bgsd2t" path="res://assets/Green potions/po��o verde.png" id="2_l8faa"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6bvt"]
+atlas = ExtResource("2_l8faa")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w61x7"]
+atlas = ExtResource("2_l8faa")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqi3m"]
+atlas = ExtResource("2_l8faa")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kosjc"]
+atlas = ExtResource("2_l8faa")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5vb0"]
+atlas = ExtResource("2_l8faa")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1whfb"]
+atlas = ExtResource("2_l8faa")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1n3f"]
+atlas = ExtResource("2_l8faa")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mergk"]
+atlas = ExtResource("2_l8faa")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h621j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6bvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w61x7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqi3m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kosjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5vb0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1whfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1n3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mergk")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_po753"]
+radius = 5.0
+
+[node name="luck_potion" type="Area2D" unique_id=1267138234]
+script = ExtResource("1_rtfq4")
+duration = 677
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1791816821]
+position = Vector2(-1.1920929e-07, 1.1920929e-07)
+scale = Vector2(0.8125, 0.8125)
+sprite_frames = SubResource("SpriteFrames_h621j")
+autoplay = "default"
+frame_progress = 0.5998744
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=726352903]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_po753")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
