@@ -65,4 +65,4 @@ shoot={
 
 rendering_device/driver.windows="d3d12"
 viewport/hdr_2d=true
-environment/defaults/default_clear_color=Color(0.5176471, 0.7764706, 0.4117647, 1)
+environment/defaults/default_clear_color=Color(1, 1, 1, 1)
