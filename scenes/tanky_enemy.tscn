@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_vfn1x"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_scss8"]
 [ext_resource type="PackedScene" uid="uid://3jgwq85fi4vy" path="res://scenes/drop_ak.tscn" id="2_vf4il"]
+[ext_resource type="AudioStream" uid="uid://bbb7gy64b64qc" path="res://assets/Combat and Gore/kick.wav" id="4_vf4il"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vf4il"]
 atlas = ExtResource("2_scss8")
@@ -104,6 +105,9 @@ shape = SubResource("RectangleShape2D_8wra2")
 
 [node name="DamageTimer" type="Timer" parent="." unique_id=368591203]
 wait_time = 0.5
+
+[node name="death" type="AudioStreamPlayer2D" parent="." unique_id=781166332]
+stream = ExtResource("4_vf4il")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]
