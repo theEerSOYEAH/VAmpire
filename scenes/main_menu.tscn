@@ -1,0 +1,146 @@
+[gd_scene format=3 uid="uid://dwfapyedug5d8"]
+
+[ext_resource type="Texture2D" uid="uid://bj1eb8r1tpn0v" path="res://assets/basic white/ribbon.png" id="1_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://dk01cpfkv5ck8" path="res://assets/basic white/button wide idle.png" id="2_oa1go"]
+[ext_resource type="FontFile" uid="uid://cta2eeoysdh3d" path="res://assets/LilitaOne-Regular.ttf" id="2_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://cuuyqd1s0alsw" path="res://assets/basic white/button wide clicked.png" id="3_tbmy8"]
+[ext_resource type="Texture2D" uid="uid://b08aybiap8la4" path="res://assets/basic white/button wide hover.png" id="4_jk1qb"]
+[ext_resource type="Texture2D" uid="uid://deglnvix4shgw" path="res://assets/basic white/button wider clicked.png" id="5_5dd4i"]
+[ext_resource type="Texture2D" uid="uid://bsxp4wflloltw" path="res://assets/basic white/button wider hover.png" id="6_lgwnu"]
+[ext_resource type="Script" uid="uid://br4sddan4r88x" path="res://scripts/play_button.gd" id="6_tbmy8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hbcpv"]
+texture = ExtResource("1_rtw2f")
+
+[sub_resource type="LabelSettings" id="LabelSettings_e6q6n"]
+font_size = 72
+outline_size = 11
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e6q6n"]
+texture = ExtResource("2_oa1go")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3gb63"]
+texture = ExtResource("3_tbmy8")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8fc75"]
+texture = ExtResource("4_jk1qb")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hg1o6"]
+texture = ExtResource("2_oa1go")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lnn63"]
+texture = ExtResource("5_5dd4i")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o1axo"]
+texture = ExtResource("6_lgwnu")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+
+[node name="Main_Menu" type="Control" unique_id=1194704052]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="." unique_id=517704930]
+z_index = 1
+layout_mode = 0
+offset_left = 357.99994
+offset_top = 103.00001
+offset_right = 664.6667
+offset_bottom = 202.0
+scale = Vector2(1.5, 1.5)
+theme_override_styles/normal = SubResource("StyleBoxTexture_hbcpv")
+label_settings = SubResource("LabelSettings_e6q6n")
+
+[node name="Label" type="Label" parent="Label" unique_id=864341831]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 8.666667
+offset_right = 278.00006
+offset_bottom = 71.33333
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 2
+theme_override_constants/outline_size = 9
+theme_override_fonts/font = ExtResource("2_tbmy8")
+text = "VAMPIRE "
+horizontal_alignment = 1
+vertical_alignment = 3
+autowrap_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=234087359]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1112.0
+offset_bottom = 608.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.096204735, 0.09620475, 0.096204735, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=639679629]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 427.0
+offset_top = 245.0
+offset_right = 711.0
+offset_bottom = 529.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="PlayButton" type="Button" parent="VBoxContainer" unique_id=1279180324]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_tbmy8")
+theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxTexture_e6q6n")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3gb63")
+theme_override_styles/hover = SubResource("StyleBoxTexture_8fc75")
+text = "PLAY"
+script = ExtResource("6_tbmy8")
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=716368346]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("2_tbmy8")
+theme_override_font_sizes/font_size = 62
+theme_override_styles/normal = SubResource("StyleBoxTexture_hg1o6")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lnn63")
+theme_override_styles/hover = SubResource("StyleBoxTexture_o1axo")
+text = "QUIT"
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="VBoxContainer/PlayButton" method="_on_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="VBoxContainer/PlayButton" method="_on_quit_button_pressed"]
