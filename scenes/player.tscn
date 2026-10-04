@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://ca6bbeamjphc4" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://cbn2ehehgi45s" path="res://assets/ROBO_WITHOUT HANDS.png" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://dwixbq018e4gy" path="res://scenes/bullet.tscn" id="2_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://bakaov5cwwkes" path="res://scenes/game_over_menu.tscn" id="2_y4r1p"]
 [ext_resource type="Script" uid="uid://cj2emipxg48vs" path="res://scripts/camera_2d.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://velb87kfafsj" path="res://scripts/hand.gd" id="4_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="5_tuyoq"]
@@ -25,6 +26,18 @@ region = Rect2(64, 32, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ur7pv"]
 atlas = ExtResource("2_g2els")
 region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
+atlas = ExtResource("2_g2els")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
+atlas = ExtResource("2_g2els")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
+atlas = ExtResource("2_g2els")
+region = Rect2(32, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
 atlas = ExtResource("2_g2els")
@@ -63,6 +76,25 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_d2wvv")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_3v2ag")
+}],
+"loop": 0,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jej6c")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qhqgy")
 }, {
 "duration": 1.0,
@@ -97,19 +129,23 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fc75"]
+size = Vector2(10, 15)
+
 [node name="player" type="CharacterBody2D" unique_id=751367425 groups=["player"]]
 position = Vector2(0, -8)
+collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_g2els")
+game_over_scene = ExtResource("2_y4r1p")
 bullet_scene = ExtResource("2_tuyoq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=797897448]
 texture_filter = 1
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_e6q6n")
-animation = &"Move"
+animation = &"die"
 autoplay = "idle"
-frame_progress = 0.75631374
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1409856519]
 position = Vector2(0, 0.5)
@@ -156,3 +192,22 @@ scale = Vector2(4, 4)
 texture_under = ExtResource("7_ur7pv")
 texture_progress = ExtResource("8_y4r1p")
 script = ExtResource("7_fjrip")
+
+[node name="Player_Hurtbox" type="Area2D" parent="." unique_id=1813066408]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Hurtbox" unique_id=770865902]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_8fc75")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1999671261]
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+spread = 90.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+color = Color(0.62557507, 1.4318898e-06, 5.7756904e-07, 1)

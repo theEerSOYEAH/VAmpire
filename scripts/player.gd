@@ -3,6 +3,9 @@ extends CharacterBody2D
 signal health_changed
 
 @onready var cooldown_label: Label = $Label
+@onready var blood_particles: CPUParticles2D = $CPUParticles2D
+
+@export var game_over_scene: PackedScene
 
 @export var shoot_cooldown = 0.4
 var shoot_timer = 0
@@ -20,10 +23,16 @@ var dash_time = 0.2
 var dash_timer = 0
 var dash_direction = Vector2.ZERO
 
+var is_hurt: bool = false
+var is_dying: bool = false
+
 var cooldown_timer = 0
 @export var dash_cooldown = 5
 
 func _physics_process(delta):
+	if is_dying:
+		return
+		
 	var direction = Input.get_vector(
 		"left",
 		 "right",
@@ -35,6 +44,11 @@ func _physics_process(delta):
 		$AnimatedSprite2D.flip_h = false
 	elif  direction.x < 0:
 		$AnimatedSprite2D.flip_h = true
+	if not is_hurt:
+		if direction != Vector2.ZERO:
+			$AnimatedSprite2D.play("Move")
+		else:
+			$AnimatedSprite2D.play("idle")
 	
 	if shoot_timer > 0:
 		shoot_timer -= delta
@@ -68,7 +82,7 @@ func _ready() -> void:
 	current_health = max_health
 
 func take_damage(amount: int):
-	if dash_timer > 0:
+	if dash_timer > 0 or is_dying:
 		return
 	
 	current_health -= amount
@@ -77,11 +91,31 @@ func take_damage(amount: int):
 	
 	if current_health <= 0:
 		die()
+	else:
+		is_hurt = true
+		blood_particles.restart()
+		if has_node("Camera2D"):
+			$Camera2D.shake()
+			
+		$AnimatedSprite2D.play("hurt")
+		await  $AnimatedSprite2D.animation_finished
+		is_hurt = false
+	
 	
 func die():
+	if is_dying:
+		return
+	is_dying = true
 	print("you died")
-	get_tree().reload_current_scene()
-
+	
+	$AnimatedSprite2D.play("die")
+	await $AnimatedSprite2D.animation_finished
+	
+	if game_over_scene:
+		var game_over_menu = game_over_scene.instantiate()
+		get_tree().current_scene.add_child(game_over_menu)
+		
+		get_tree().paused = true
 
 func shoot():
 	if not bullet_scene:
