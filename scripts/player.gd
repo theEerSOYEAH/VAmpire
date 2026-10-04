@@ -4,6 +4,9 @@ signal health_changed
 
 @onready var cooldown_label: Label = $Label
 @onready var blood_particles: CPUParticles2D = $CPUParticles2D
+@onready var potion_particles: CPUParticles2D = $health_particle
+@onready var speed_particles: CPUParticles2D = $speed_particle
+@onready var luck_particles: CPUParticles2D = $luck_particle
 
 @export var game_over_scene: PackedScene
 
@@ -58,7 +61,7 @@ func activate_luck(duration):
 	luck_activate = true
 	
 	print("LUCK ACTIVATED! Multiplier: ", luck_multiplier)
-	
+	luck_particles.restart()
 	await get_tree().create_timer(duration).timeout
 	
 	luck_multiplier = 1
@@ -69,6 +72,8 @@ func activate_luck(duration):
 func speed_boost(amount: float, duration: float):
 	print("DEDECTED")
 	speed = base_speed + amount
+	
+	speed_particles.restart()
 	
 	await get_tree().create_timer(duration).timeout
 	
@@ -118,6 +123,9 @@ func _physics_process(delta):
 			ak_shoot_timer = ak_shoot_cooldown
 
 	if Input.is_action_just_pressed("dash"):
+		
+		$dash_sound.play()
+		
 		if direction != Vector2.ZERO and cooldown_timer <= 0:
 			dash_direction = direction
 			dash_timer = dash_time
@@ -184,6 +192,8 @@ func shoot():
 
 	var bullet = bullet_scene.instantiate()
 
+	$gunshot.play()
+
 	bullet.global_position = gun.global_position
 	bullet.look_at(get_global_mouse_position())
 
@@ -196,6 +206,8 @@ func shoot_ak47():
 		return
 	
 	var bullet = bullet_scene.instantiate()
+	
+	$gunshot.play()
 	
 	bullet.global_position = ak_muzzle.global_position
 	bullet.look_at(get_global_mouse_position())
@@ -228,7 +240,7 @@ func switch_weapon():
 			current_weapon = "ak47"
 
 			gun.visible = false
-			ak47.visible = true
+			ak47.visible = true 
 			sword.visible = false
 
 			hand.current_distance = gun_hand_distance
@@ -269,6 +281,8 @@ func unlock_ak47():
 func heal(amount):
 	current_health = min(current_health + amount, max_health)
 	health_changed.emit()
+	
+	potion_particles.restart()
 	
 
 func _ready():
