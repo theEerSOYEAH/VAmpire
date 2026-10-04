@@ -1,4 +1,4 @@
-# Survivility
+# Vampirity
 
 A 2D Roguelike game made with godot
 
@@ -15,6 +15,16 @@ Head over to this itch.io link ->
 * WASD - To Move
 * Left Click - To Attack
 * Space - To Dash
+* Q - To Change Weapons
+
+## Potions
+* Health Potions -- Recovers some of your health
+* Speed Potions -- Makes player move faster
+* Luck Potions -- Boosts chance of potions spawning
+
+## Eltie Enemies
+
+These enemies are bigger and stronger than usual. Although if killed you will get rewarded.
 
 ## Makers of the game
 
