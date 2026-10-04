@@ -22,7 +22,7 @@ Head over to this itch.io link ->
 * Speed Potions -- Makes player move faster
 * Luck Potions -- Boosts chance of potions spawning
 
-## Eltie Enemies
+## Elite Enemies
 
 These enemies are bigger and stronger than usual. Although if killed you will get rewarded.
 
