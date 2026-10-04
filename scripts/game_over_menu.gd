@@ -5,9 +5,12 @@ extends CanvasLayer
 @onready var color_rect: ColorRect = $ColorRect
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	color_rect.modulate.a = 0.0
 	
 	var tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(color_rect, "modulate:a", 1.0, 1.5).set_trans(Tween.TRANS_SINE)
 	
 	restart_button.pressed.connect(_on_restart_pressed)
@@ -20,11 +23,3 @@ func  _on_restart_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()
-
-
-func _on_restart_button_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_quit_button_pressed() -> void:
-	pass # Replace with function body.
