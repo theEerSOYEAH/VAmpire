@@ -5,14 +5,15 @@ extends Area2D
 @export var swing_time: float = 0.15
 
 var attacking: bool = false
-
 var hit_enemies: Array = []
+
 
 func attack() -> void:
 	if attacking:
 		return
 
 	attacking = true
+	hit_enemies.clear()
 
 	var start_rotation := rotation
 	var end_rotation := start_rotation + deg_to_rad(swing_angle)
@@ -26,14 +27,15 @@ func attack() -> void:
 	attacking = false
 
 
-
-
-
 func _on_body_entered(body: Node2D) -> void:
+	print("entered")
+
 	if not attacking:
 		return
-	
-	if body.is_in_group("enemy") and body.has_method("take_damage"):
+
+	if body.is_in_group("enemy"):
+		print("Enemy hit!")
+
 		if body not in hit_enemies:
 			body.take_damage(damage)
 			hit_enemies.append(body)
