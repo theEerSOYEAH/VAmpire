@@ -19,6 +19,18 @@ region = Rect2(432, 80, 16, 16)
 atlas = ExtResource("2_scss8")
 region = Rect2(448, 80, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfn1x"]
+atlas = ExtResource("2_scss8")
+region = Rect2(400, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_scss8"]
+atlas = ExtResource("2_scss8")
+region = Rect2(416, 96, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0oby"]
+atlas = ExtResource("2_scss8")
+region = Rect2(416, 96, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_e6q6n"]
 animations = [{
 "frames": [{
@@ -37,9 +49,31 @@ animations = [{
 "loop": 1,
 "name": &"default",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfn1x")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_scss8")
+}],
+"loop": 0,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0oby")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 10.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e6q6n"]
+size = Vector2(8, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8wra2"]
 size = Vector2(8, 14)
 
 [node name="tanky_enemy" type="CharacterBody2D" unique_id=983673362]
@@ -50,7 +84,20 @@ max_health = 50.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=395428702]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_e6q6n")
+animation = &"die"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1299577698]
 shape = SubResource("RectangleShape2D_e6q6n")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1228397613]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1713401675]
+shape = SubResource("RectangleShape2D_8wra2")
+
+[node name="DamageTimer" type="Timer" parent="." unique_id=368591203]
+wait_time = 0.5
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="Hitbox" to="." method="_on_hitbox_body_exited"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

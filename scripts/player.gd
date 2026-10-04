@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal health_changed
+
 @onready var cooldown_label: Label = $Label
 
 @export var shoot_cooldown = 0.4
@@ -16,6 +18,9 @@ var shoot_timer = 0
 
 
 var current_weapon = "gun"
+
+@export var max_health: int = 3
+var current_health: int = 3
 
 var speed = 200
 var dash_speed = 800
@@ -68,6 +73,26 @@ func _physics_process(delta):
 
 	move_and_slide()
 	
+
+func _ready() -> void:
+	current_health = max_health
+
+func take_damage(amount: int):
+	if dash_timer > 0:
+		return
+	
+	current_health -= amount
+	health_changed.emit()
+	print("player health: ", current_health)
+	
+	if current_health <= 0:
+		die()
+	
+func die():
+	print("you died")
+	get_tree().reload_current_scene()
+
+
 func shoot():
 	if not bullet_scene:
 		return
