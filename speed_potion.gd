@@ -3,7 +3,8 @@ extends Area2D
 @export var speed_bonus: float = 150
 @export var duration: float = 5
 
-
+func  _ready() -> void:
+	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node2D) -> void:
 	print(body.name)
