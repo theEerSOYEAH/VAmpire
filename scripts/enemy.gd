@@ -7,7 +7,7 @@ extends CharacterBody2D
 
 
 var current_health: float 
-var player_ref: CharacterBody2D = null
+var player_ref: Area2D = null
 var player: CharacterBody2D = null
 var knockback: Vector2 =Vector2.ZERO
 var is_dying: bool = false
@@ -19,18 +19,19 @@ func _ready() -> void:
 	current_health = max_health
 	player = get_tree().get_first_node_in_group("player")
 	
-	hitbox.body_entered.connect(_on_hitbox_body_entered)
-	hitbox.body_exited.connect(_on_hitbox_body_exited)
+	hitbox.area_entered.connect(_on_hitbox_area_entered)
+	hitbox.area_exited.connect(_on_hitbox_area_exited)
 	damage_timer.timeout.connect(_on_damage_timer_timeout)
 
-func _on_hitbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("player"):
-		player_ref = body
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	var target = area.owner
+	if target and target.is_in_group("player"):
+		player_ref = area
 		deal_damage()
 		damage_timer.start()
 
-func _on_hitbox_body_exited(body: Node2D) -> void:
-	if body == player_ref:
+func _on_hitbox_area_exited(area: Area2D) -> void:
+	if area == player_ref:
 		player_ref = null
 		damage_timer.stop()
 
@@ -38,25 +39,28 @@ func _on_damage_timer_timeout() -> void:
 	deal_damage()
 
 func deal_damage() -> void:
-	if is_instance_valid(player_ref) and player_ref.has_method("take_damage"):
-		player_ref.take_damage(contact_damage)
+	if is_instance_valid(player_ref):
+		var target = player_ref.owner
+		if target and target.has_method("take_damage"):
+			target.take_damage(contact_damage)
 		
 
 func _physics_process(delta: float) -> void:
 	if is_dying:
 		return
-		
+	
+	
 	if player:
-		var direction := global_position.direction_to(player.global_position)
+		var kb_direction := global_position.direction_to(player.global_position)
 		
 		knockback = knockback.lerp(Vector2.ZERO, 10.0 * delta)
 		
-		velocity = (direction * speed) + knockback
+		velocity = (kb_direction * speed) + knockback
 		move_and_slide()
 		
-		if direction.x > 0:
+		if kb_direction.x > 0:
 			$AnimatedSprite2D.flip_h = false
-		elif direction.x < 0:
+		elif kb_direction.x < 0:
 			$AnimatedSprite2D.flip_h = true
 
 func take_damage(amount: float) -> void:
@@ -65,11 +69,9 @@ func take_damage(amount: float) -> void:
 		die()
 	else:
 		$AnimatedSprite2D.play("hurt")
-		
 		await $AnimatedSprite2D.animation_finished
+		$AnimatedSprite2D.play("default")
 		
-		if not is_dying:
-			$AnimatedSprite2D.play("default")
 
 
 func apply_knockback(_source_position: Vector2) -> void:
@@ -90,3 +92,6 @@ func die() -> void:
 	
 	await $AnimatedSprite2D.animation_finished
 	queue_free()
+
+
+		
