@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_4ra3w"]
 [ext_resource type="PackedScene" uid="uid://db06cpreabyqw" path="res://scenes/speed_potion.tscn" id="2_5uy6h"]
 [ext_resource type="PackedScene" uid="uid://cxgf06r4dx58v" path="res://scenes/heal_potion.tscn" id="3_5uy6h"]
+[ext_resource type="PackedScene" uid="uid://3jgwq85fi4vy" path="res://scenes/drop_ak.tscn" id="3_c4w8v"]
+[ext_resource type="AudioStream" uid="uid://bbb7gy64b64qc" path="res://assets/Combat and Gore/kick.wav" id="6_xwavj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e6q6n"]
 size = Vector2(8, 14)
@@ -83,10 +85,10 @@ collision_layer = 4
 collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_md0e3")
-speed = 50.0
 max_health = 20.0
 elite_chance = 0.107
 potion_scenes = Array[PackedScene]([ExtResource("2_5uy6h")])
+ak_drop_scene = ExtResource("3_c4w8v")
 health_potion_scene = ExtResource("3_5uy6h")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=115448792]
@@ -107,6 +109,9 @@ shape = SubResource("RectangleShape2D_8fc75")
 
 [node name="DamageTimer" type="Timer" parent="." unique_id=1538074526]
 wait_time = 0.5
+
+[node name="death" type="AudioStreamPlayer2D" parent="." unique_id=337174605]
+stream = ExtResource("6_xwavj")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]
