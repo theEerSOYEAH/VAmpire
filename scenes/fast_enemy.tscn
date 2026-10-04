@@ -77,6 +77,8 @@ size = Vector2(9, 11)
 size = Vector2(8, 14)
 
 [node name="fast_enemy" type="CharacterBody2D" unique_id=1614132443]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_7dcje")
 speed = 175.0
 max_health = 10.0
@@ -92,9 +94,14 @@ position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_e6q6n")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1544791933]
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1661571504]
 shape = SubResource("RectangleShape2D_7dcje")
 
 [node name="DamageTimer" type="Timer" parent="." unique_id=991287748]
 wait_time = 0.5
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]

@@ -15,6 +15,7 @@ point_count = 2
 colors = PackedColorArray(0.44297108, 0.012920001, 0.012920001, 0, 0.44297108, 0.012920001, 0.012920001, 1)
 
 [node name="CrueltyProjectile" type="Area2D" unique_id=964695871]
+collision_mask = 3
 script = ExtResource("1_k4cvo")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1973218050]

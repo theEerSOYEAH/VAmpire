@@ -77,6 +77,8 @@ size = Vector2(8, 14)
 size = Vector2(8, 14)
 
 [node name="zombie" type="CharacterBody2D" unique_id=11863541]
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_httt1")
 speed = 125.0
 max_health = 30.0
@@ -91,6 +93,8 @@ autoplay = "default"
 shape = SubResource("RectangleShape2D_e6q6n")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=288421729]
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=716410789]
 shape = SubResource("RectangleShape2D_aetfh")
@@ -98,6 +102,8 @@ shape = SubResource("RectangleShape2D_aetfh")
 [node name="DamageTimer" type="Timer" parent="." unique_id=537131415]
 wait_time = 0.5
 
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="Hitbox" to="." method="_on_hitbox_body_exited"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
