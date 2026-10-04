@@ -52,20 +52,6 @@ func make_elite():
 
 
 
-func _ready() -> void:
-	add_to_group("enemy")
-	current_health = max_health
-	player = get_tree().get_first_node_in_group("player")
-	
-	
-	print("Enemy spawned: ", name, " | Elite chance: ", elite_chance, " | Already spawned: ", elite_spawned)
-
-	if not elite_spawned and randf() <= elite_chance:
-		make_elite()
-	
-	
-	hitbox.body_entered.connect(_on_hitbox_body_entered)
-	hitbox.body_exited.connect(_on_hitbox_body_exited)
 	hitbox.area_entered.connect(_on_hitbox_area_entered)
 	hitbox.area_exited.connect(_on_hitbox_area_exited)
 	damage_timer.timeout.connect(_on_damage_timer_timeout)
@@ -81,6 +67,19 @@ func _on_hitbox_area_exited(area: Area2D) -> void:
 	if area == player_ref:
 		player_ref = null
 		damage_timer.stop()
+func _ready() -> void:
+	add_to_group("enemy")
+	current_health = max_health
+	player = get_tree().get_first_node_in_group("player")
+	
+	
+	print("Enemy spawned: ", name, " | Elite chance: ", elite_chance, " | Already spawned: ", elite_spawned)
+
+	if not elite_spawned and randf() <= elite_chance:
+		make_elite()
+	
+	
+
 
 func _on_damage_timer_timeout() -> void:
 	deal_damage()
@@ -176,6 +175,12 @@ func drop_potion():
 
 
 func drop_ak():
+	
+	print("===== DROP AK CHECK =====")
+	print("Enemy: ", name)
+	print("is_elite: ", is_elite)
+	print("ak_drop_scene: ", ak_drop_scene) 
+	
 	if not is_elite:
 		return
 	
@@ -203,6 +208,8 @@ func die() -> void:
 		$CollisionShape2D.set_deferred("disabled", true)
 	
 	$AnimatedSprite2D.play("die")
+	$death.play()
+	
 	
 	await $AnimatedSprite2D.animation_finished
 	
@@ -215,3 +222,4 @@ func die() -> void:
 
 
 		
+#maybe if we improve this game we can add a lot of things fr fr f r fr 
