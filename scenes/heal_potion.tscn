@@ -1,43 +1,46 @@
 [gd_scene format=3 uid="uid://cxgf06r4dx58v"]
 
 [ext_resource type="Script" uid="uid://r18llcvddh3p" path="res://heal_potion.gd" id="1_p1y2b"]
-[ext_resource type="Texture2D" uid="uid://dd037qh11kv7w" path="res://assets/Red potions/po��o vermelha.png" id="2_ia001"]
+[ext_resource type="Texture2D" uid="uid://c6mmsic3p750f" path="res://assets/Purple potions/po��o roxa.png" id="2_p1y2b"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3dvrr"]
-atlas = ExtResource("2_ia001")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ia001"]
+atlas = ExtResource("2_p1y2b")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l4hlj"]
-atlas = ExtResource("2_ia001")
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dvrr"]
+atlas = ExtResource("2_p1y2b")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qqys6"]
-atlas = ExtResource("2_ia001")
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4hlj"]
+atlas = ExtResource("2_p1y2b")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_c8ijk"]
-atlas = ExtResource("2_ia001")
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqys6"]
+atlas = ExtResource("2_p1y2b")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ygdpe"]
-atlas = ExtResource("2_ia001")
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8ijk"]
+atlas = ExtResource("2_p1y2b")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bv8a7"]
-atlas = ExtResource("2_ia001")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygdpe"]
+atlas = ExtResource("2_p1y2b")
 region = Rect2(32, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x1imq"]
-atlas = ExtResource("2_ia001")
+[sub_resource type="AtlasTexture" id="AtlasTexture_bv8a7"]
+atlas = ExtResource("2_p1y2b")
 region = Rect2(0, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_e7a3c"]
-atlas = ExtResource("2_ia001")
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1imq"]
+atlas = ExtResource("2_p1y2b")
 region = Rect2(16, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_h621j"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ia001")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3dvrr")
 }, {
@@ -58,9 +61,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_x1imq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e7a3c")
 }],
 "loop": 1,
 "name": &"default",
@@ -71,6 +71,7 @@ animations = [{
 radius = 4.0
 
 [node name="heal_potion" type="Area2D" unique_id=2053288302]
+collision_mask = 2
 script = ExtResource("1_p1y2b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=986439614]
