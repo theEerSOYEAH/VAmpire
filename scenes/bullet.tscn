@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dwixbq018e4gy"]
 
 [ext_resource type="Script" uid="uid://ckae7hpyabxeh" path="res://scripts/bullet.gd" id="1_y25gk"]
+[ext_resource type="PackedScene" uid="uid://dh0c6ekin26t" path="res://scenes/hit_particles.tscn" id="2_eoqba"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_l5glv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eoqba"]
@@ -23,7 +24,10 @@ size = Vector2(7, 4)
 
 [node name="bullet" type="Area2D" unique_id=137864882]
 modulate = Color(1.6119872, 1.1938294, 1.1938294, 1)
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("1_y25gk")
+hit_particles = ExtResource("2_eoqba")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1324750100]
 texture_filter = 1
