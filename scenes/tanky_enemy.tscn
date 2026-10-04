@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_vfn1x"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_scss8"]
+[ext_resource type="PackedScene" uid="uid://3jgwq85fi4vy" path="res://scenes/drop_ak.tscn" id="2_vf4il"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vf4il"]
 atlas = ExtResource("2_scss8")
@@ -80,6 +81,8 @@ size = Vector2(8, 14)
 script = ExtResource("1_vfn1x")
 speed = 75.0
 max_health = 50.0
+elite_chance = 0.09
+ak_drop_scene = ExtResource("2_vf4il")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=395428702]
 texture_filter = 1

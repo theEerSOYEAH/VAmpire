@@ -6,19 +6,63 @@ extends CharacterBody2D
 @export var knockback_force: float = 600.0
 
 
+@export_category("elite")
+@export_range(0.0, 1.0) var elite_chance : float = 1.0
+@export var elite_health_multi = 2
+@export var elite_damage_multi = 1.5
+@export var elite_scale = 1.5
+@export var is_elite = false
+
+
+@export var potion_scenes : Array[PackedScene] = []
+@export_range(0.0, 1.0) var potion_drop_chance: float = 0.2
+@export var ak_drop_scene : PackedScene
+@export var drops_heal_poitons = false
+@export var health_potion_scene : PackedScene
+@export_range(0.0 , 1.0) var health_potion_drop_chance = 0.2
+
+
 var current_health: float 
 var player_ref: CharacterBody2D = null
 var player: CharacterBody2D = null
 var knockback: Vector2 =Vector2.ZERO
 var is_dying: bool = false
+static var elite_spawned : bool = false
 
 @onready var hitbox: Area2D = $Hitbox
 @onready var damage_timer: Timer = $DamageTimer
+
+
+func make_elite():
+	if elite_spawned:
+		return
+	
+	elite_spawned = true
+	is_elite = true
+	
+	max_health *= elite_health_multi
+	current_health = max_health
+	contact_damage = int(contact_damage * elite_damage_multi)
+	
+	scale *= elite_scale
+	
+	
+	print("Elite enemy spawnedd")
+
+
+
 
 func _ready() -> void:
 	add_to_group("enemy")
 	current_health = max_health
 	player = get_tree().get_first_node_in_group("player")
+	
+	
+	print("Enemy spawned: ", name, " | Elite chance: ", elite_chance, " | Already spawned: ", elite_spawned)
+
+	if not elite_spawned and randf() <= elite_chance:
+		make_elite()
+	
 	
 	hitbox.body_entered.connect(_on_hitbox_body_entered)
 	hitbox.body_exited.connect(_on_hitbox_body_exited)
@@ -78,6 +122,73 @@ func apply_knockback(_source_position: Vector2) -> void:
 		var knockback_direction = player.global_position.direction_to(global_position)
 		knockback = knockback_direction * knockback_force
 
+
+func drop_heal_potion():
+	if not drops_heal_poitons:
+		return
+	
+	if health_potion_scene == null:
+		return
+	
+	
+	var chance = health_potion_drop_chance
+	
+	if is_instance_valid(player) and player.luck_activate:
+		chance *= player.luck_multiplier
+	
+	chance = min(chance, 1)
+	
+	if randf()> chance:
+		return
+	
+	
+	var potion = health_potion_scene.instantiate()
+	potion.global_position = global_position
+	get_tree().current_scene.add_child(potion)
+
+
+
+func drop_potion():
+	if potion_scenes.is_empty():
+		return
+	
+	var chance = potion_drop_chance
+	
+	print("Potion drop chance: ", chance * 100, "%")
+	
+	if is_instance_valid(player) and player.luck_activate:
+		chance *= player.luck_multiplier
+	
+	chance = min(chance, 1)
+	if randf() > chance:
+		return
+	
+	var random_potion = potion_scenes.pick_random()
+	
+	if random_potion:
+		var potion = random_potion.instantiate()
+		potion.global_position = global_position
+		get_tree().current_scene.add_child(potion)
+
+
+func drop_ak():
+	if not is_elite:
+		return
+	
+	if ak_drop_scene == null:
+		return
+	
+	var ak = ak_drop_scene.instantiate()
+	ak.global_position = global_position
+	get_tree().current_scene.add_child(ak)
+
+
+
+
+
+
+
+
 func die() -> void:
 	if is_dying:
 		return
@@ -90,4 +201,10 @@ func die() -> void:
 	$AnimatedSprite2D.play("die")
 	
 	await $AnimatedSprite2D.animation_finished
+	
+	drop_potion()
+	drop_heal_potion()
+	drop_ak()
+	
+	
 	queue_free()

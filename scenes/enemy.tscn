@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_md0e3"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_4ra3w"]
+[ext_resource type="PackedScene" uid="uid://db06cpreabyqw" path="res://scenes/speed_potion.tscn" id="2_5uy6h"]
+[ext_resource type="PackedScene" uid="uid://cxgf06r4dx58v" path="res://scenes/heal_potion.tscn" id="3_5uy6h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e6q6n"]
 size = Vector2(8, 14)
@@ -80,6 +82,9 @@ size = Vector2(10, 16)
 motion_mode = 1
 script = ExtResource("1_md0e3")
 max_health = 20.0
+elite_chance = 0.107
+potion_scenes = Array[PackedScene]([ExtResource("2_5uy6h")])
+health_potion_scene = ExtResource("3_5uy6h")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=115448792]
 
