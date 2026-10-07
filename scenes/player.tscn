@@ -156,11 +156,11 @@ position = Vector2(0, -8)
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_g2els")
-ammo = 1000
 game_over_scene = ExtResource("2_y4r1p")
 bullet_scene = ExtResource("2_tuyoq")
 gun_hand_distance = 15.0
 sword_hand_distance = 20.0
+ak_unlocked = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=797897448]
 texture_filter = 1
