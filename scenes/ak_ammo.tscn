@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dxy60dtkpj1rp"]
+
+[ext_resource type="Script" uid="uid://cchh86218ybmj" path="res://ak_ammo.gd" id="1_fh2g6"]
+[ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_85wg3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y83fs"]
+atlas = ExtResource("2_85wg3")
+region = Rect2(176, 255, 22, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_po753"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y83fs")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nnsmj"]
+radius = 5.0
+
+[node name="ak_ammo" type="Area2D" unique_id=1424865514]
+collision_mask = 2
+script = ExtResource("1_fh2g6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1214121600]
+sprite_frames = SubResource("SpriteFrames_po753")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1173035767]
+position = Vector2(-2, 0)
+shape = SubResource("CircleShape2D_nnsmj")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
