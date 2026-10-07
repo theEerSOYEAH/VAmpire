@@ -2,6 +2,15 @@ extends CharacterBody2D
 
 signal health_changed
 
+var total_gun_ammo = 80
+var total_ak_ammo = 180
+
+var gun_mag = 20
+var ak_mag = 30
+
+var current_gun_amo = 20
+var current_ak_ammo = 30
+
 @onready var cooldown_label: Label = $Label
 @onready var blood_particles: CPUParticles2D = $CPUParticles2D
 @onready var potion_particles: CPUParticles2D = $health_particle
@@ -55,6 +64,22 @@ var luck_multiplier = 1
 var luck_activate = false
 
 
+
+func reload():
+	var needed_gun_ammo = gun_mag - current_gun_amo
+	var ammo_to_reload = min(needed_gun_ammo,total_gun_ammo)
+	
+	total_gun_ammo -= ammo_to_reload
+	current_gun_amo += ammo_to_reload
+	$Label2.text = str(current_gun_amo,"/",total_gun_ammo)
+
+func ak_reload():
+	var needed_ak_ammo = ak_mag - current_ak_ammo
+	var ak_ammo_to_reload = min(needed_ak_ammo,total_ak_ammo)
+	
+	total_ak_ammo -= ak_ammo_to_reload
+	current_ak_ammo += ak_ammo_to_reload
+	$Label2.text = str("ak" ,current_ak_ammo,"/",total_ak_ammo)
 
 func activate_luck(duration):
 	luck_multiplier = 2
@@ -189,34 +214,30 @@ func die():
 func shoot():
 	if not bullet_scene:
 		return
-
-	var bullet = bullet_scene.instantiate()
-
-	$gunshot.play()
-
-	bullet.global_position = gun.global_position
-	bullet.look_at(get_global_mouse_position())
-
-	get_tree().current_scene.add_child(bullet)
-	$Camera2D.shake()
-
+	if current_gun_amo > 0:
+		var bullet = bullet_scene.instantiate()
+		$gunshot.play()
+		bullet.global_position = gun.global_position
+		bullet.look_at(get_global_mouse_position())
+		get_tree().current_scene.add_child(bullet)
+		$Camera2D.shake()
+		current_gun_amo -= 1
+		$Label2.text = str(current_gun_amo,"/",total_gun_ammo)
 
 func shoot_ak47():
 	if not bullet_scene:
 		return
 	
-	var bullet = bullet_scene.instantiate()
-	
-	$gunshot.play()
-	
-	bullet.global_position = ak_muzzle.global_position
-	bullet.look_at(get_global_mouse_position())
-	bullet.damage = 7.5
-	
-	get_tree().current_scene.add_child(bullet)
-	
-	$Camera2D.shake()
-
+	if current_ak_ammo > 0:
+		var bullet = bullet_scene.instantiate()
+		$gunshot.play()
+		bullet.global_position = ak_muzzle.global_position
+		bullet.look_at(get_global_mouse_position())
+		bullet.damage = 7.5
+		get_tree().current_scene.add_child(bullet)
+		$Camera2D.shake()
+		current_ak_ammo -= 1
+		$Label2.text = str("ak", current_ak_ammo,"/",total_ak_ammo)
 
 func _process(_delta):
 	# Sword attack
@@ -230,6 +251,11 @@ func _process(_delta):
 			
 			
 
+	if Input.is_action_just_pressed("reload"):
+		if current_weapon == "gun":
+			reload()
+		elif current_weapon == "ak47":
+			ak_reload()
 
 func switch_weapon():
 	shoot_timer = 0
@@ -242,6 +268,7 @@ func switch_weapon():
 			gun.visible = false
 			ak47.visible = true 
 			sword.visible = false
+			$Label2.text = str("ak", current_ak_ammo,"/",total_ak_ammo)
 
 			hand.current_distance = gun_hand_distance
 		else:
@@ -250,6 +277,7 @@ func switch_weapon():
 			gun.visible = false
 			ak47.visible = false
 			sword.visible = true
+			$Label2.text = str(" ")
 
 			hand.current_distance = sword_hand_distance
 
@@ -259,6 +287,7 @@ func switch_weapon():
 		gun.visible = false
 		ak47.visible = false
 		sword.visible = true
+		$Label2.text = str(" ")
 
 		hand.current_distance = sword_hand_distance
 
@@ -268,6 +297,7 @@ func switch_weapon():
 		gun.visible = true
 		ak47.visible = false
 		sword.visible = false
+		$Label2.text = str(current_gun_amo ,"/",total_gun_ammo)
 
 		hand.current_distance = gun_hand_distance
 
@@ -286,8 +316,10 @@ func heal(amount):
 	
 
 func _ready():
+	current_weapon = "ak47"
+	$Label2.text = str(current_ak_ammo,"/",total_ak_ammo)
 	current_health = max_health
-	gun.visible = true
-	ak47.visible = false
+	gun.visible = false
+	ak47.visible = true
 	sword.visible = false
 	hand.current_distance = gun_hand_distance
