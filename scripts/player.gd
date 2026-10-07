@@ -40,7 +40,7 @@ var ak_shoot_timer = 0
 
 
 var current_weapon = "gun"
-var ak_unlocked = false
+@export var ak_unlocked = false
 
 @export var max_health: int = 3
 var current_health: int = 3
