@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://ddr5m3kjetykj" path="res://assets/Tilemap/tilemap_packed.png" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://dpgp6tdpxo70q" path="res://scenes/zombie.tscn" id="8_trceg"]
 [ext_resource type="Texture2D" uid="uid://del5d366r0gje" path="res://assets/Tilemap/monochrome_tilemap.png" id="11_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://brre8s65t8jyg" path="res://scenes/gun_ammo.tscn" id="14_a8y0u"]
+[ext_resource type="PackedScene" uid="uid://dxy60dtkpj1rp" path="res://scenes/ak_ammo.tscn" id="15_jkv2x"]
 [ext_resource type="AudioStream" uid="uid://bs0x5tlasik2j" path="res://assets/Musical Effects/Roblox Doors Soundtrack Elevator Jam (Looped 10 Min) - Idiocrity (128k).mp3" id="16_jbj1t"]
 
 [sub_resource type="Resource" id="Resource_tefeu"]
@@ -523,3 +525,27 @@ layer_0/tile_data = PackedInt32Array(-3604536, 2, 1, 4718536, 2, 1, 4653167, 655
 stream = ExtResource("16_jbj1t")
 volume_db = 4.86
 autoplay = true
+
+[node name="gun_ammo" parent="." unique_id=1057074470 instance=ExtResource("14_a8y0u")]
+position = Vector2(241, 162)
+
+[node name="gun_ammo2" parent="." unique_id=1448776398 instance=ExtResource("14_a8y0u")]
+position = Vector2(242, 184)
+
+[node name="gun_ammo3" parent="." unique_id=1891369144 instance=ExtResource("14_a8y0u")]
+position = Vector2(201, 161)
+
+[node name="ak_ammo" parent="." unique_id=1424865514 instance=ExtResource("15_jkv2x")]
+position = Vector2(445, 185)
+
+[node name="ak_ammo2" parent="." unique_id=1623739369 instance=ExtResource("15_jkv2x")]
+position = Vector2(458, 201)
+
+[node name="ak_ammo3" parent="." unique_id=1026875730 instance=ExtResource("15_jkv2x")]
+position = Vector2(477, 224)
+
+[node name="ak_ammo4" parent="." unique_id=1813909922 instance=ExtResource("15_jkv2x")]
+position = Vector2(463, 265)
+
+[node name="ak_ammo5" parent="." unique_id=199397901 instance=ExtResource("15_jkv2x")]
+position = Vector2(415, 249)
