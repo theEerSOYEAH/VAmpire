@@ -156,6 +156,7 @@ position = Vector2(0, -8)
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_g2els")
+ammo = 1000
 game_over_scene = ExtResource("2_y4r1p")
 bullet_scene = ExtResource("2_tuyoq")
 gun_hand_distance = 15.0
@@ -305,5 +306,12 @@ color = Color(0.3499999, 1, 0, 1)
 
 [node name="dash_sound" type="AudioStreamPlayer2D" parent="." unique_id=1935873584]
 stream = ExtResource("15_oprun")
+
+[node name="Label2" type="Label" parent="." unique_id=515231657]
+offset_left = -18.0
+offset_top = 11.0
+offset_right = 22.0
+offset_bottom = 34.0
+text = "ammo"
 
 [connection signal="body_entered" from="hand/sword" to="hand/sword" method="_on_body_entered"]
