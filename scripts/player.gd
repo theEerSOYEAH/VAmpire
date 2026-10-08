@@ -4,12 +4,15 @@ signal health_changed
 
 var total_gun_ammo = 80
 var total_ak_ammo = 180
+var total_stgn_ammo = 30
 
 var gun_mag = 20
 var ak_mag = 30
+var stgn_mag = 6
 
 var current_gun_amo = 20
 var current_ak_ammo = 30
+var current_stgn_ammo = 6
 
 @onready var cooldown_label: Label = $Label
 @onready var blood_particles: CPUParticles2D = $CPUParticles2D
@@ -25,6 +28,9 @@ var shoot_timer = 0
 @export var ak_shoot_cooldown = 0.1
 var ak_shoot_timer = 0
 
+@export var stgn_shoot_cooldown = 0.5
+var stgn_shoot_timer = 0
+
 @export var bullet_scene: PackedScene
 @onready var gun: Node2D =  $hand/gun
 @onready var sword = $hand/sword
@@ -32,11 +38,21 @@ var ak_shoot_timer = 0
 @onready var hand = $hand
 @onready var ak47 = $hand/ak47
 @onready var ak_muzzle = $"hand/ak47/muzzle ak"
+@onready var stgn: Node2D = $hand/shotgun
+@onready var muzzle_stgn: Marker2D = $"hand/shotgun/muzzle shotgun"
+
 
 
 
 @export var gun_hand_distance:float = 5
 @export var sword_hand_distance:float = 2
+@export var ak_hand_distance = 3
+@export var stgn_hand_distance =3
+
+
+@export var stgn_pellets = 6
+@export var stgn_spread:float = 25
+@export var stgn_damage:float = 5.0
 
 
 var current_weapon = "gun"
@@ -72,6 +88,16 @@ func reload():
 	total_gun_ammo -= ammo_to_reload
 	current_gun_amo += ammo_to_reload
 	$Label2.text = str(current_gun_amo,"/",total_gun_ammo)
+
+func stgn_reload():
+	var needed_stgn_ammo = stgn_mag - current_stgn_ammo
+	var stgn_ammo_to_reload = min(needed_stgn_ammo,total_stgn_ammo)
+	
+	total_stgn_ammo -= stgn_ammo_to_reload
+	current_stgn_ammo += stgn_ammo_to_reload
+	$Label2.text = str(current_stgn_ammo,"/",total_stgn_ammo)
+
+
 
 func ak_reload():
 	var needed_ak_ammo = ak_mag - current_ak_ammo
@@ -131,6 +157,9 @@ func _physics_process(delta):
 	if ak_shoot_timer > 0:
 		ak_shoot_timer -= delta
 	
+	if stgn_shoot_timer > 0:
+		stgn_shoot_timer -= delta
+	
 	if cooldown_timer > 0:
 		cooldown_timer -= delta
 		cooldown_label.text = "%.1f" %cooldown_timer
@@ -146,6 +175,15 @@ func _physics_process(delta):
 		if Input.is_action_pressed("shoot") and ak_shoot_timer <= 0:
 			shoot_ak47()
 			ak_shoot_timer = ak_shoot_cooldown
+
+
+	if current_weapon == "stgn":
+		if Input.is_action_just_pressed("shoot") and stgn_shoot_timer <= 0:
+			shoot_stgn()
+			stgn_shoot_timer = stgn_shoot_cooldown
+
+
+
 
 	if Input.is_action_just_pressed("dash"):
 		
@@ -239,6 +277,46 @@ func shoot_ak47():
 		current_ak_ammo -= 1
 		$Label2.text = str("ak", current_ak_ammo,"/",total_ak_ammo)
 
+
+func shoot_stgn():
+	if not bullet_scene:
+		return
+	
+	if current_stgn_ammo <= 0:
+		return
+	
+	for i in stgn_pellets:
+		var bullet = bullet_scene.instantiate()
+		
+		var direction = (
+			get_global_mouse_position() - muzzle_stgn.global_position
+		).normalized()
+		
+		var spread = deg_to_rad(
+			randf_range(-stgn_spread, stgn_spread)
+		)
+		
+		direction = direction.rotated(spread)
+		
+		bullet.rotation = direction.angle()
+		bullet.damage = stgn_damage
+		get_tree().current_scene.add_child(bullet)
+		
+		bullet.global_position = muzzle_stgn.global_position
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	
+	current_stgn_ammo -= 1
+	$Camera2D.shake()
+	$Label2.text = str(current_stgn_ammo,"/",total_stgn_ammo)
+
 func _process(_delta):
 	# Sword attack
 	if Input.is_action_just_pressed("attack"):
@@ -256,10 +334,13 @@ func _process(_delta):
 			reload()
 		elif current_weapon == "ak47":
 			ak_reload()
+		elif current_weapon == "stgn":
+			stgn_reload()
 
 func switch_weapon():
 	shoot_timer = 0
 	ak_shoot_timer = 0
+	stgn_shoot_timer = 0
 
 	if current_weapon == "gun":
 		if ak_unlocked:
@@ -267,29 +348,40 @@ func switch_weapon():
 
 			gun.visible = false
 			ak47.visible = true 
+			stgn.visible = false
 			sword.visible = false
 			$Label2.text = str("ak", current_ak_ammo,"/",total_ak_ammo)
 
-			hand.current_distance = gun_hand_distance
+			hand.current_distance = ak_hand_distance
 		else:
 			current_weapon = "sword"
 
 			gun.visible = false
 			ak47.visible = false
 			sword.visible = true
+			stgn.visible = false
 			$Label2.text = str(" ")
 
 			hand.current_distance = sword_hand_distance
 
 	elif current_weapon == "ak47":
-		current_weapon = "sword"
+		current_weapon = "stgn"
 
 		gun.visible = false
 		ak47.visible = false
-		sword.visible = true
-		$Label2.text = str(" ")
+		sword.visible = false
+		stgn.visible = true
+		$Label2.text = str(current_stgn_ammo,"/",total_stgn_ammo)
 
-		hand.current_distance = sword_hand_distance
+		hand.current_distance = stgn_hand_distance
+
+	elif current_weapon == "stgn":
+		current_weapon = "sword"
+		
+		gun.visible = false
+		ak47.visible = false
+		stgn.visible = false
+		sword.visible = true	
 
 	else:
 		current_weapon = "gun"
@@ -322,4 +414,5 @@ func _ready():
 	gun.visible = false
 	ak47.visible = true
 	sword.visible = false
+	stgn.visible = false
 	hand.current_distance = gun_hand_distance
