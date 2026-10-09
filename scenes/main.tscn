@@ -510,6 +510,7 @@ waves = Array[ExtResource("3_tefeu")]([SubResource("Resource_tbgi4"), SubResourc
 [node name="player" parent="." unique_id=751367425 instance=ExtResource("3_tbgi4")]
 z_index = 1
 position = Vector2(323, 162)
+ak_unlocked = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1050405216]
 environment = SubResource("Environment_e6q6n")
