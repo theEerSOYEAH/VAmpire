@@ -57,6 +57,7 @@ var stgn_shoot_timer = 0
 
 var current_weapon = "gun"
 @export var ak_unlocked = false
+@export var stgn_unlocked = false
 
 @export var max_health: int = 3
 var current_health: int = 3
@@ -353,6 +354,17 @@ func switch_weapon():
 			$Label2.text = str("ak", current_ak_ammo,"/",total_ak_ammo)
 
 			hand.current_distance = ak_hand_distance
+		
+		elif stgn_unlocked:
+			current_weapon = "stgn"
+			stgn.visible = true
+			sword.visible = false
+			gun.visible= false
+			ak47.visible = false
+			$Label2.text = str(current_stgn_ammo, "/", total_stgn_ammo)
+			hand.current_distance = stgn_hand_distance
+		
+		
 		else:
 			current_weapon = "sword"
 
@@ -365,15 +377,28 @@ func switch_weapon():
 			hand.current_distance = sword_hand_distance
 
 	elif current_weapon == "ak47":
-		current_weapon = "stgn"
+		if stgn_unlocked:
+			current_weapon = "stgn"
 
-		gun.visible = false
-		ak47.visible = false
-		sword.visible = false
-		stgn.visible = true
-		$Label2.text = str(current_stgn_ammo,"/",total_stgn_ammo)
+			gun.visible = false
+			ak47.visible = false
+			sword.visible = false
+			stgn.visible = true
+			$Label2.text = str(current_stgn_ammo,"/",total_stgn_ammo)
 
-		hand.current_distance = stgn_hand_distance
+			hand.current_distance = stgn_hand_distance
+
+
+		else:
+			current_weapon = "sword"
+			gun.visible = false
+			sword.visible = true
+			ak47.visible = false
+			stgn.visible = false
+
+
+
+
 
 	elif current_weapon == "stgn":
 		current_weapon = "sword"
@@ -398,7 +423,8 @@ func unlock_ak47():
 	ak_unlocked = true
 	print("ak_unlocked")
 
-
+func unlock_stgn():
+	stgn_unlocked = true
 
 func heal(amount):
 	current_health = min(current_health + amount, max_health)
@@ -408,11 +434,10 @@ func heal(amount):
 	
 
 func _ready():
-	current_weapon = "ak47"
 	$Label2.text = str(current_ak_ammo,"/",total_ak_ammo)
 	current_health = max_health
-	gun.visible = false
-	ak47.visible = true
+	gun.visible = true
+	ak47.visible = false
 	sword.visible = false
 	stgn.visible = false
 	hand.current_distance = gun_hand_distance
