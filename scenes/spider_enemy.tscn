@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_hnado"]
 [ext_resource type="PackedScene" uid="uid://3jgwq85fi4vy" path="res://scenes/drop_ak.tscn" id="2_i4n6y"]
+[ext_resource type="PackedScene" uid="uid://ba1cbcs652eyo" path="res://scenes/stgn_ammo.tscn" id="2_kvmen"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_puuph"]
 [ext_resource type="AudioStream" uid="uid://bbb7gy64b64qc" path="res://assets/Combat and Gore/kick.wav" id="4_i4n6y"]
 
@@ -85,6 +86,7 @@ script = ExtResource("1_hnado")
 speed = 150.0
 max_health = 30.0
 elite_chance = 0.103
+stgn_ammo_scene = ExtResource("2_kvmen")
 ak_drop_scene = ExtResource("2_i4n6y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1703030561]
