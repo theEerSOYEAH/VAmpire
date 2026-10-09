@@ -32,4 +32,11 @@ sprite_frames = SubResource("SpriteFrames_po753")
 position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_nnsmj")
 
+[node name="Label" type="Label" parent="." unique_id=1472324093]
+offset_left = -20.0
+offset_top = -26.0
+offset_right = 20.0
+offset_bottom = -3.0
+text = "ak ammo"
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
