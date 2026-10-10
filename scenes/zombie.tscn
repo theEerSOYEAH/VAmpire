@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="1_1vlb3"]
 [ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_httt1"]
+[ext_resource type="PackedScene" uid="uid://3jgwq85fi4vy" path="res://scenes/drop_ak.tscn" id="2_xepks"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_httt1"]
 atlas = ExtResource("1_1vlb3")
@@ -82,11 +83,12 @@ collision_mask = 4
 script = ExtResource("1_httt1")
 speed = 125.0
 max_health = 30.0
+elite_chance = 0.105
+ak_drop_scene = ExtResource("2_xepks")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=176393904]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_e6q6n")
-animation = &"die"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1316095201]

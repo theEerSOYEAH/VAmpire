@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cnj1a60qe03yd"
+path="res://.godot/imported/synth_bass_chime_positive.wav-8e40e976eef5c0f61c20c18b29d72820.sample"
+
+[deps]
+
+source_file="res://assets/Musical Effects/synth_bass_chime_positive.wav"
+dest_files=["res://.godot/imported/synth_bass_chime_positive.wav-8e40e976eef5c0f61c20c18b29d72820.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

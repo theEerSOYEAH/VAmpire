@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dlpi78iivojm5"
+path="res://.godot/imported/steel_drums_mystery.wav-e41dc17c79cb48905497002a95cb5fdd.sample"
+
+[deps]
+
+source_file="res://assets/Musical Effects/steel_drums_mystery.wav"
+dest_files=["res://.godot/imported/steel_drums_mystery.wav-e41dc17c79cb48905497002a95cb5fdd.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

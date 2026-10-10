@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ca0csk88fm1us"
+path="res://.godot/imported/8_bit_negative_quick.wav-25f5bca32e499c18721f29b6d3da7311.sample"
+
+[deps]
+
+source_file="res://assets/Musical Effects/8_bit_negative_quick.wav"
+dest_files=["res://.godot/imported/8_bit_negative_quick.wav-25f5bca32e499c18721f29b6d3da7311.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

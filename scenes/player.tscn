@@ -7,9 +7,14 @@
 [ext_resource type="Script" uid="uid://cj2emipxg48vs" path="res://scripts/camera_2d.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://velb87kfafsj" path="res://scripts/hand.gd" id="4_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="5_tuyoq"]
+[ext_resource type="Script" uid="uid://5cx4iq4jfeis" path="res://scripts/sword.gd" id="7_d2wvv"]
 [ext_resource type="Script" uid="uid://cxmjaftijwsdh" path="res://scripts/hp_bar.gd" id="7_fjrip"]
 [ext_resource type="Texture2D" uid="uid://bevv31qbvxtl2" path="res://assets/healthbarUnder.png" id="7_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://cs3i54c7shthr" path="res://assets/herosword.png" id="7_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://c6b8xhpqpq4j1" path="res://assets/healthbarProgress.png" id="8_y4r1p"]
+[ext_resource type="AudioStream" uid="uid://bt2fc8semi0cv" path="res://assets/Weapons/sword_slice.wav" id="10_f1ej7"]
+[ext_resource type="AudioStream" uid="uid://c0tj4ecmjtqks" path="res://assets/Weapons/harsh_thud.wav" id="13_jej6c"]
+[ext_resource type="AudioStream" uid="uid://bp1ebef7c4kyj" path="res://assets/Weapons/shot_muffled.wav" id="15_oprun"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("2_g2els")
@@ -28,8 +33,8 @@ atlas = ExtResource("2_g2els")
 region = Rect2(96, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
-atlas = ExtResource("2_g2els")
-region = Rect2(0, 128, 32, 32)
+atlas = ExtResource("5_tuyoq")
+region = Rect2(288, 288, 32, 18)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
 atlas = ExtResource("2_g2els")
@@ -129,6 +134,20 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h621j"]
+size = Vector2(4, 19)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h621j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2wvv")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fc75"]
 size = Vector2(10, 15)
 
@@ -139,6 +158,8 @@ motion_mode = 1
 script = ExtResource("1_g2els")
 game_over_scene = ExtResource("2_y4r1p")
 bullet_scene = ExtResource("2_tuyoq")
+gun_hand_distance = 15.0
+sword_hand_distance = 20.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=797897448]
 texture_filter = 1
@@ -165,16 +186,45 @@ offset_bottom = -9.0
 [node name="hand" type="Node2D" parent="." unique_id=1284006532]
 position = Vector2(12, 5)
 script = ExtResource("4_qlg0r")
-hand_distance = 20.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="hand" unique_id=286037227]
+[node name="gun" type="Node2D" parent="hand" unique_id=1303579569]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="hand/gun" unique_id=286037227]
 texture_filter = 1
-position = Vector2(0, -3.9999998)
+position = Vector2(0, -4)
 scale = Vector2(0.7, 0.7)
 sprite_frames = SubResource("SpriteFrames_8fc75")
 
-[node name="Muzzle" type="Marker2D" parent="hand" unique_id=1168974264]
-position = Vector2(6, -4)
+[node name="Muzzle" type="Marker2D" parent="hand/gun" unique_id=1168974264]
+position = Vector2(5, -4)
+
+[node name="sword" type="Area2D" parent="hand" unique_id=235044836]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("7_d2wvv")
+
+[node name="Sprite2D" type="Sprite2D" parent="hand/sword" unique_id=1731611365]
+position = Vector2(0, -5)
+rotation = -0.71461785
+scale = Vector2(0.5, 0.537037)
+texture = ExtResource("7_y4r1p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hand/sword" unique_id=721898137]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_h621j")
+
+[node name="slash" type="AudioStreamPlayer2D" parent="hand/sword" unique_id=417888686]
+stream = ExtResource("10_f1ej7")
+
+[node name="ak47" type="Node2D" parent="hand" unique_id=2059167564]
+
+[node name="muzzle ak" type="Marker2D" parent="hand/ak47" unique_id=1429233420]
+position = Vector2(11, -4)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="hand/ak47" unique_id=851709628]
+position = Vector2(3.9999979, -2.0000002)
+scale = Vector2(0.7777778, 0.7777778)
+sprite_frames = SubResource("SpriteFrames_h621j")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1325551671]
 
@@ -211,3 +261,49 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 50.0
 initial_velocity_max = 100.0
 color = Color(0.62557507, 1.4318898e-06, 5.7756904e-07, 1)
+
+[node name="gunshot" type="AudioStreamPlayer2D" parent="." unique_id=1089599409]
+position = Vector2(12, 5)
+stream = ExtResource("13_jej6c")
+
+[node name="health_particle" type="CPUParticles2D" parent="." unique_id=1966197150]
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+color = Color(0.7333331, 0, 1, 1)
+
+[node name="speed_particle" type="CPUParticles2D" parent="." unique_id=2081691291]
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 5.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+color = Color(2.887845e-06, 0.6603152, 0.82343346, 1)
+
+[node name="luck_particle" type="CPUParticles2D" parent="." unique_id=346348513]
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+color = Color(0.3499999, 1, 0, 1)
+
+[node name="dash_sound" type="AudioStreamPlayer2D" parent="." unique_id=1935873584]
+stream = ExtResource("15_oprun")
+
+[connection signal="body_entered" from="hand/sword" to="hand/sword" method="_on_body_entered"]

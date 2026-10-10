@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dkdin5yfeln4w"
+path="res://.godot/imported/squelching_4.wav-008a7429baa43d5a6e697eb8c0214316.sample"
+
+[deps]
+
+source_file="res://assets/Combat and Gore/squelching_4.wav"
+dest_files=["res://.godot/imported/squelching_4.wav-008a7429baa43d5a6e697eb8c0214316.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

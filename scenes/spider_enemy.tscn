@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://c2vbxtsqgqlq6"]
 
 [ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_hnado"]
+[ext_resource type="PackedScene" uid="uid://3jgwq85fi4vy" path="res://scenes/drop_ak.tscn" id="2_i4n6y"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_puuph"]
+[ext_resource type="AudioStream" uid="uid://bbb7gy64b64qc" path="res://assets/Combat and Gore/kick.wav" id="4_i4n6y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i4n6y"]
 atlas = ExtResource("2_puuph")
@@ -82,6 +84,8 @@ collision_mask = 4
 script = ExtResource("1_hnado")
 speed = 150.0
 max_health = 30.0
+elite_chance = 0.103
+ak_drop_scene = ExtResource("2_i4n6y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1703030561]
 texture_filter = 1
@@ -101,6 +105,9 @@ shape = SubResource("RectangleShape2D_hnado")
 
 [node name="DamageTimer" type="Timer" parent="." unique_id=708547555]
 wait_time = 0.5
+
+[node name="death" type="AudioStreamPlayer2D" parent="." unique_id=34822928]
+stream = ExtResource("4_i4n6y")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]

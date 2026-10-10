@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://db06cpreabyqw"]
+
+[ext_resource type="Script" uid="uid://6oxjy4sl2dc0" path="res://speed_potion.gd" id="1_qulrn"]
+[ext_resource type="Texture2D" uid="uid://ptc80wrvpkq" path="res://assets/Blue potions/po��o azul meio vazia.png" id="2_ui344"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vbk3r"]
+atlas = ExtResource("2_ui344")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvgxk"]
+atlas = ExtResource("2_ui344")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_feqxx"]
+atlas = ExtResource("2_ui344")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqh6h"]
+atlas = ExtResource("2_ui344")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3q6x"]
+atlas = ExtResource("2_ui344")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70m0b"]
+atlas = ExtResource("2_ui344")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkewk"]
+atlas = ExtResource("2_ui344")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81vod"]
+atlas = ExtResource("2_ui344")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h621j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vbk3r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvgxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_feqxx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqh6h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c3q6x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70m0b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkewk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81vod")
+}],
+"loop": 1,
+"name": &"normal",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_po753"]
+radius = 4.1231055
+
+[node name="speed potion" type="Area2D" unique_id=1170293875]
+collision_mask = 2
+script = ExtResource("1_qulrn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=930038628]
+position = Vector2(-2, 2)
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_h621j")
+animation = &"normal"
+autoplay = "normal"
+frame_progress = 0.721464
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=200812857]
+position = Vector2(-2, 4)
+shape = SubResource("CircleShape2D_po753")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

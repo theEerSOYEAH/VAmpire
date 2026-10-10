@@ -3,7 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="1_kugm7"]
 [ext_resource type="Script" uid="uid://ne4k3kyk35e" path="res://scripts/cruelty.gd" id="1_q6gnw"]
 [ext_resource type="PackedScene" uid="uid://cjl4br4x4lamk" path="res://scenes/cruelty_projectile.tscn" id="2_55t43"]
+[ext_resource type="PackedScene" uid="uid://cryr1x0vf1vhr" path="res://scenes/luck_potion.tscn" id="2_61wkl"]
 [ext_resource type="Texture2D" uid="uid://br8ei5kfutdwy" path="res://assets/charge.png" id="4_55t43"]
+[ext_resource type="AudioStream" uid="uid://bbb7gy64b64qc" path="res://assets/Combat and Gore/kick.wav" id="6_litew"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_msv2l"]
 atlas = ExtResource("1_kugm7")
@@ -68,6 +70,7 @@ z_index = 1
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_q6gnw")
+luck_potion_scene = ExtResource("2_61wkl")
 projectile_scene = ExtResource("2_55t43")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1650289200]
@@ -91,3 +94,6 @@ texture = ExtResource("4_55t43")
 [node name="ShootTimer" type="Timer" parent="." unique_id=734118012]
 wait_time = 2.0
 autostart = true
+
+[node name="death" type="AudioStreamPlayer2D" parent="." unique_id=1577486862]
+stream = ExtResource("6_litew")

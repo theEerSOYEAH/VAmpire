@@ -29,7 +29,7 @@ func start_wave() -> void:
 	
 	for config in current_wave.enemies:
 		if config and config.enemy_scene:
-			spawn_enemy_group(config)
+			spawn_enemy_group(config, current_wave)
 		else:
 			active_spawn_groups -= 1
 			
@@ -37,7 +37,7 @@ func start_wave() -> void:
 		wave_timer.start(current_wave.time_after_wave)
 	
 
-func spawn_enemy_group(config: EnemyConfig) -> void:
+func spawn_enemy_group(config: EnemyConfig, current_wave: WaveData) -> void:
 	for i in range(config.count):
 		spawn_enemy(config.enemy_scene)
 		
@@ -45,7 +45,6 @@ func spawn_enemy_group(config: EnemyConfig) -> void:
 		
 	active_spawn_groups -= 1
 	if active_spawn_groups == 0:
-		var current_wave: WaveData = waves[current_wave_index]
 		wave_timer.start(current_wave.time_after_wave)
 
 func _on_wave_timer_timeout() -> void:

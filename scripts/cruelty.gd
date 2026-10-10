@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+
+
+
+@export var luck_potion_scene: PackedScene
 @export var projectile_scene: PackedScene
 @export var shooting_range: float = 200.0
 @export var retreat_distance: float = 150.0
@@ -75,8 +79,20 @@ func take_damage(amount: int) -> void:
 func die() -> void:
 	$AnimatedSprite2D.play("die")
 	await $AnimatedSprite2D.animation_finished
+	drop_luck_potion()
+	
 	queue_free()
+
 
 		
 		
 		
+		
+
+func drop_luck_potion():
+	if luck_potion_scene == null:
+		return
+	
+	var potion = luck_potion_scene.instantiate()
+	potion.global_position =  global_position
+	get_tree().current_scene.add_child(potion)

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://csx6j15pslku5"
+path="res://.godot/imported/vibraphone_inn.wav-f87e58d78687e0e4a9ab8fc04afc659f.sample"
+
+[deps]
+
+source_file="res://assets/Musical Effects/vibraphone_inn.wav"
+dest_files=["res://.godot/imported/vibraphone_inn.wav-f87e58d78687e0e4a9ab8fc04afc659f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
