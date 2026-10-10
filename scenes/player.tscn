@@ -16,7 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://c0tj4ecmjtqks" path="res://assets/Weapons/harsh_thud.wav" id="13_jej6c"]
 [ext_resource type="AudioStream" uid="uid://bp1ebef7c4kyj" path="res://assets/Weapons/shot_muffled.wav" id="15_oprun"]
 [ext_resource type="Script" uid="uid://cx5exfblt3x74" path="res://scenes/knife.gd" id="16_qfm1y"]
-[ext_resource type="PackedScene" uid="uid://buold2l8hspud" path="res://scenes/knife_projectile.tscn" id="17_fulsm"]
+[ext_resource type="PackedScene" uid="uid://dh0c6ekin26t" path="res://scenes/hit_particles.tscn" id="17_fulsm"]
 [ext_resource type="Texture2D" uid="uid://cputqp8cgjsd7" path="res://assets/Weapons/knife.png" id="18_fulsm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
@@ -168,6 +168,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fc75"]
 size = Vector2(10, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gb63"]
+size = Vector2(19, 12)
 
 [node name="player" type="CharacterBody2D" unique_id=751367425 groups=["player"]]
 position = Vector2(0, -8)
@@ -341,11 +344,21 @@ color = Color(0.3499999, 1, 0, 1)
 [node name="dash_sound" type="AudioStreamPlayer2D" parent="." unique_id=1935873584]
 stream = ExtResource("15_oprun")
 
-[node name="Knife" type="Node2D" parent="." unique_id=563466577]
+[node name="Knife" type="Area2D" parent="." unique_id=399000500]
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("16_qfm1y")
-projectile_scene = ExtResource("17_fulsm")
+orbit_radius = 30.0
+cooldown_time = 2.0
+hit_particles = ExtResource("17_fulsm")
 
 [node name="Sprite2D" type="Sprite2D" parent="Knife" unique_id=2128542308]
 texture = ExtResource("18_fulsm")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Knife" unique_id=1341358824]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_3gb63")
+
 [connection signal="body_entered" from="hand/sword" to="hand/sword" method="_on_body_entered"]
+[connection signal="area_entered" from="Knife" to="Knife" method="_on_area_entered"]
+[connection signal="body_entered" from="Knife" to="Knife" method="_on_body_entered"]
