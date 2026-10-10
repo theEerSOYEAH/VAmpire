@@ -123,7 +123,6 @@ collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_md0e3")
 max_health = 20.0
-elite_chance = 0.107
 stgn_ammo_scene = ExtResource("2_8qclf")
 ak_ammo_scene = ExtResource("2_md484")
 gun_ammo_scene = SubResource("PackedScene_md484")
