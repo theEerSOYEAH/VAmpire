@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://76ih3oal6fyu"]
+
+[ext_resource type="Script" uid="uid://cu452rry4x0n7" path="res://scripts/exp_gem.gd" id="1_espnq"]
+[ext_resource type="Texture2D" uid="uid://18a45nts14nr" path="res://icon.svg" id="2_vg54l"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e6q6n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vg54l")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8fc75"]
+size = Vector2(8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e6q6n"]
+radius = 120.0
+
+[node name="ExpGem" type="Area2D" unique_id=1681836876]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_espnq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=452244457]
+scale = Vector2(0.062499996, 0.062499996)
+sprite_frames = SubResource("SpriteFrames_e6q6n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1972209173]
+shape = SubResource("RectangleShape2D_8fc75")
+
+[node name="MagnetArea" type="Area2D" parent="." unique_id=13620126]
+collision_layer = 0
+collision_mask = 2
+
+[node name="MagnetCollision" type="CollisionShape2D" parent="MagnetArea" unique_id=264295837]
+shape = SubResource("CircleShape2D_e6q6n")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="MagnetArea" to="." method="_on_magnet_area_body_entered"]

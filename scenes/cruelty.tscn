@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="1_kugm7"]
 [ext_resource type="Script" uid="uid://ne4k3kyk35e" path="res://scripts/cruelty.gd" id="1_q6gnw"]
+[ext_resource type="PackedScene" uid="uid://76ih3oal6fyu" path="res://scenes/exp_gem.tscn" id="2_5swh5"]
 [ext_resource type="PackedScene" uid="uid://cjl4br4x4lamk" path="res://scenes/cruelty_projectile.tscn" id="2_55t43"]
 [ext_resource type="PackedScene" uid="uid://cryr1x0vf1vhr" path="res://scenes/luck_potion.tscn" id="2_61wkl"]
 [ext_resource type="Texture2D" uid="uid://br8ei5kfutdwy" path="res://assets/charge.png" id="4_55t43"]
@@ -70,6 +71,7 @@ z_index = 1
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_q6gnw")
+exp_gem_scene = ExtResource("2_5swh5")
 luck_potion_scene = ExtResource("2_61wkl")
 projectile_scene = ExtResource("2_55t43")
 

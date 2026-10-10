@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://cxk8tlfvvpfft"]
+
+[ext_resource type="Texture2D" uid="uid://deglnvix4shgw" path="res://assets/basic white/button wider clicked.png" id="1_ktuci"]
+[ext_resource type="Texture2D" uid="uid://bj1eb8r1tpn0v" path="res://assets/basic white/ribbon.png" id="2_kg30u"]
+[ext_resource type="FontFile" uid="uid://cta2eeoysdh3d" path="res://assets/LilitaOne-Regular.ttf" id="3_6ligt"]
+[ext_resource type="Texture2D" uid="uid://cs78hjwe4mya4" path="res://assets/basic white/button square idle.png" id="3_sy11y"]
+[ext_resource type="Texture2D" uid="uid://sp01ar7yjdj5" path="res://assets/basic white/heart empty.png" id="5_8w5pg"]
+
+[node name="Card" type="TextureButton" unique_id=87504485]
+offset_right = 240.0
+offset_bottom = 360.0
+
+[node name="Background" type="NinePatchRect" parent="." unique_id=1918756433]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ktuci")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1696917293]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 18.0
+offset_right = 226.0
+offset_bottom = 64.0
+texture = ExtResource("2_kg30u")
+
+[node name="Label" type="Label" parent="NinePatchRect" unique_id=1604084628]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 6.0
+offset_right = -22.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_6ligt")
+theme_override_font_sizes/font_size = 24
+text = "MAX HEALTH"
+horizontal_alignment = 1
+
+[node name="IconFrame" type="NinePatchRect" parent="." unique_id=103200194]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 0
+offset_left = 27.0
+offset_top = 62.0
+offset_right = 217.0
+offset_bottom = 343.0
+texture = ExtResource("3_sy11y")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="Icon" type="TextureRect" parent="IconFrame" unique_id=1180473390]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 18.0
+offset_right = 226.0
+offset_bottom = 198.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_8w5pg")
+
+[node name="Label" type="Label" parent="." unique_id=1810148971]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 177.0
+offset_right = 205.0
+offset_bottom = 200.0
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("3_6ligt")
+theme_override_font_sizes/font_size = 42
+text = "1+   MAX HP"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

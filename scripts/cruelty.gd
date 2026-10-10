@@ -1,7 +1,10 @@
 extends CharacterBody2D
 
 
-
+@export_category("drops")
+@export var exp_gem_scene: PackedScene
+@export var exp_amount: int = 10
+@export_range(0.0, 1.0) var exp_drop_chance: float = 1.0
 
 @export var luck_potion_scene: PackedScene
 @export var projectile_scene: PackedScene
@@ -80,13 +83,28 @@ func die() -> void:
 	$AnimatedSprite2D.play("die")
 	await $AnimatedSprite2D.animation_finished
 	drop_luck_potion()
+	drop_exp()
 	
 	queue_free()
 
-
-		
-		
-		
+func drop_exp() -> void:
+	if exp_gem_scene == null:
+		return
+	
+	var chance = exp_drop_chance
+	if is_instance_valid(player) and "luck_activate" in player and player.luck_activate:
+		chance *= player.luck_multiplier
+	chance = min(chance, 1.0)
+	
+	if randf():
+		return
+	var exp_gem = exp_gem_scene.instantiate()
+	exp_gem.global_position = global_position
+	
+	if "exp_amount" in exp_gem:
+		exp_gem.exp_amount = exp_amount
+	
+	get_tree().current_scene.add_child(exp_gem)
 		
 
 func drop_luck_potion():
