@@ -13,6 +13,9 @@ extends CharacterBody2D
 @export var elite_scale = 1.5
 @export var is_elite = false
 
+@export var stgn_ammo_scene : PackedScene
+@export var ak_ammo_scene : PackedScene
+@export var gun_ammo_scene : PackedScene
 @export_category("drops")
 @export var exp_gem_scene: PackedScene
 @export var exp_amount: int = 10
@@ -21,28 +24,36 @@ extends CharacterBody2D
 @export var potion_scenes : Array[PackedScene] = []
 @export_range(0.0, 1.0) var potion_drop_chance: float = 0.2
 @export var ak_drop_scene : PackedScene
+@export var stgn_drop_scene : PackedScene
 @export var drops_heal_poitons = false
 @export var health_potion_scene : PackedScene
 @export_range(0.0 , 1.0) var health_potion_drop_chance = 0.2
-
+@export_range(0.0, 1.0) var gun_ammo_drop_chance :float = 1
+@export_range(0.0, 1.0) var ak_ammo_drop_chance :float =0.2
+@export_range(0.0, 1.0) var stgn_ammo_drop_chance:float = 0.2
 
 var current_health: float 
 var player_ref: Area2D = null
 var player: CharacterBody2D = null
 var knockback: Vector2 =Vector2.ZERO
 var is_dying: bool = false
-static var elite_spawned : bool = false
+static var elite_spawned = 0
+var elite_number = 0
 
 @onready var hitbox: Area2D = $Hitbox
 @onready var damage_timer: Timer = $DamageTimer
 
 
 func make_elite():
-	if elite_spawned:
+	if elite_spawned >= 2:
 		return
 	
-	elite_spawned = true
-	is_elite = true
+	elite_spawned += 1
+	elite_number = elite_spawned
+	is_elite =  true
+	
+	
+	
 	
 	max_health *= elite_health_multi
 	current_health = max_health
@@ -80,7 +91,7 @@ func _ready() -> void:
 	
 	print("Enemy spawned: ", name, " | Elite chance: ", elite_chance, " | Already spawned: ", elite_spawned)
 
-	if not elite_spawned and randf() <= elite_chance:
+	if elite_spawned < 2 and randf() <= elite_chance:
 		make_elite()
 	
 	
@@ -156,6 +167,61 @@ func drop_heal_potion():
 
 
 
+
+func drop_stgn_ammo():
+	if stgn_ammo_scene == null:
+		print("48748923")
+		return
+	
+	var chance = stgn_ammo_drop_chance
+	
+	if is_instance_valid(player) and player.luck_activate:
+		chance += player.luck_multiplier
+	chance = min(chance, 1)
+	if randf()> chance:
+		return
+	
+	var ammo = stgn_ammo_scene.instantiate()
+	ammo.global_position = global_position
+	get_tree().current_scene.add_child(ammo)
+
+
+
+func drop_ak_ammo():
+	if ak_ammo_scene == null:
+		print("akammoemptyscene")
+		return
+	
+	var chance = ak_ammo_drop_chance
+	
+	if is_instance_valid(player) and player.luck_activate:
+		chance *= player.luck_multiplier
+	chance = min(chance, 1)
+	if randf()> chance:
+		return
+	
+	var ammo = ak_ammo_scene.instantiate()
+	ammo.global_position = global_position
+	get_tree().current_scene.add_child(ammo)
+	
+func drop_gun_ammo():
+	if gun_ammo_scene == null:
+		print("isempty")
+		return
+	
+	var chance = gun_ammo_drop_chance
+	
+	if is_instance_valid(player) and player.luck_activate:
+		chance *= player.luck_multiplier
+		
+	chance = min(chance, 1)
+	if randf()> chance:
+		return
+			
+	var ammo = gun_ammo_scene.instantiate()
+	ammo.global_position = global_position
+	get_tree().current_scene.add_child(ammo)
+
 func drop_potion():
 	if potion_scenes.is_empty():
 		return
@@ -198,6 +264,19 @@ func drop_ak():
 
 
 
+func drop_stgn():
+	if not is_elite:
+		return
+	
+	if stgn_drop_scene == null:
+		return
+	
+	var stgn = stgn_drop_scene.instantiate()
+	stgn.global_position = global_position
+	get_tree().current_scene.add_child(stgn)
+
+
+
 
 func  drop_exp() -> void:
 	if exp_gem_scene == null:
@@ -236,6 +315,13 @@ func die() -> void:
 	
 	drop_potion()
 	drop_heal_potion()
+	if elite_number == 1:
+		drop_ak()
+	elif elite_number == 2:
+		drop_stgn()
+	drop_gun_ammo()
+	drop_ak_ammo()
+	drop_stgn_ammo()
 	drop_ak()
 	
 	drop_exp()

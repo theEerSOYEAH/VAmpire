@@ -151,6 +151,21 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = ExtResource("5_tuyoq")
+region = Rect2(224, 289, 32, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_po753"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fc75"]
 size = Vector2(10, 15)
 
@@ -163,7 +178,7 @@ game_over_scene = ExtResource("2_y4r1p")
 bullet_scene = ExtResource("2_tuyoq")
 gun_hand_distance = 15.0
 sword_hand_distance = 20.0
-max_health = 714
+ak_unlocked = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=797897448]
 texture_filter = 1
@@ -230,6 +245,15 @@ position = Vector2(3.9999979, -2.0000002)
 scale = Vector2(0.7777778, 0.7777778)
 sprite_frames = SubResource("SpriteFrames_h621j")
 
+[node name="shotgun" type="Node2D" parent="hand" unique_id=241589994]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="hand/shotgun" unique_id=1990334453]
+position = Vector2(4, -2)
+scale = Vector2(0.7941176, 0.7941176)
+sprite_frames = SubResource("SpriteFrames_po753")
+
+[node name="muzzle shotgun" type="Marker2D" parent="hand/shotgun" unique_id=1414053049]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1325551671]
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1474006660]
@@ -254,6 +278,13 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Hurtbox" unique_id=770865902]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_8fc75")
+
+[node name="Label2" type="Label" parent="." unique_id=515231657]
+offset_left = -18.0
+offset_top = 11.0
+offset_right = 22.0
+offset_bottom = 34.0
+text = "ammo"
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1999671261]
 emitting = false

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://brre8s65t8jyg"]
+
+[ext_resource type="Script" uid="uid://b65dj3mqnmhal" path="res://gun_ammo.gd" id="1_yrlyu"]
+[ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_cn4tu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mluvo"]
+atlas = ExtResource("2_cn4tu")
+region = Rect2(176, 255, 22, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_po753"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mluvo")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h621j"]
+radius = 5.0
+
+[node name="gun_ammo" type="Area2D" unique_id=1057074470]
+collision_mask = 2
+script = ExtResource("1_yrlyu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1427750633]
+sprite_frames = SubResource("SpriteFrames_po753")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1286164441]
+position = Vector2(-2, 0)
+shape = SubResource("CircleShape2D_h621j")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
