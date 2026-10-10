@@ -15,6 +15,9 @@
 [ext_resource type="AudioStream" uid="uid://bt2fc8semi0cv" path="res://assets/Weapons/sword_slice.wav" id="10_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://c0tj4ecmjtqks" path="res://assets/Weapons/harsh_thud.wav" id="13_jej6c"]
 [ext_resource type="AudioStream" uid="uid://bp1ebef7c4kyj" path="res://assets/Weapons/shot_muffled.wav" id="15_oprun"]
+[ext_resource type="Script" uid="uid://cx5exfblt3x74" path="res://scenes/knife.gd" id="16_qfm1y"]
+[ext_resource type="PackedScene" uid="uid://buold2l8hspud" path="res://scenes/knife_projectile.tscn" id="17_fulsm"]
+[ext_resource type="Texture2D" uid="uid://cputqp8cgjsd7" path="res://assets/Weapons/knife.png" id="18_fulsm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("2_g2els")
@@ -160,6 +163,7 @@ game_over_scene = ExtResource("2_y4r1p")
 bullet_scene = ExtResource("2_tuyoq")
 gun_hand_distance = 15.0
 sword_hand_distance = 20.0
+max_health = 714
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=797897448]
 texture_filter = 1
@@ -305,5 +309,12 @@ color = Color(0.3499999, 1, 0, 1)
 
 [node name="dash_sound" type="AudioStreamPlayer2D" parent="." unique_id=1935873584]
 stream = ExtResource("15_oprun")
+
+[node name="Knife" type="Node2D" parent="." unique_id=563466577]
+script = ExtResource("16_qfm1y")
+projectile_scene = ExtResource("17_fulsm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Knife" unique_id=2128542308]
+texture = ExtResource("18_fulsm")
 
 [connection signal="body_entered" from="hand/sword" to="hand/sword" method="_on_body_entered"]
