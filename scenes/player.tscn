@@ -344,13 +344,13 @@ flip_h = true
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1474006660]
 texture_filter = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -81.0
-offset_right = 64.0
-offset_bottom = -41.0
-grow_vertical = 0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -258.0
+offset_right = -194.0
+offset_bottom = 40.0
+grow_horizontal = 0
 scale = Vector2(4, 4)
 texture_under = ExtResource("7_ur7pv")
 texture_progress = ExtResource("8_y4r1p")
