@@ -3,6 +3,8 @@ extends Node2D
 @export var waves: Array[WaveData] = []
 @export var spawn_radius: float = 400.0
 
+var loop_count: int = 0
+var difficulty_multiplier: float = 1.0
 var current_wave_index: int = 0
 var active_spawn_groups: int = 0
 var player: CharacterBody2D
@@ -20,8 +22,11 @@ func _ready() -> void:
 
 func start_wave() -> void:
 	if current_wave_index >= waves.size():
-		print("All waves completed")
-		return
+		current_wave_index = 0
+		loop_count += 1
+		difficulty_multiplier += 0.25
+		print("looping waves! Loop tier: ", loop_count)
+		
 		
 	var current_wave: WaveData = waves[current_wave_index]
 	
@@ -54,18 +59,16 @@ func _on_wave_timer_timeout() -> void:
 func spawn_enemy(enemy_scene: PackedScene) -> void:
 	if not player or not enemy_scene:
 		return
-		
-	var enemy = enemy_scene.instantiate()
 	
+	var enemy = enemy_scene.instantiate()
 	enemy.player = player
 	
 	var random_angle := randf() * TAU
-	var spawn_pos := player.global_position + Vector2(cos(random_angle), sin(random_angle)) * spawn_radius
+	var randomized_radius = spawn_radius + randf_range(-60.0, 60.0)
+	var spawn_pos: Vector2 = player.global_position + Vector2(cos(random_angle), sin(random_angle)) * randomized_radius
 	
 	enemy.global_position = spawn_pos
-	
 	get_tree().current_scene.add_child(enemy)
-	
 		
 		
 		
