@@ -36,6 +36,10 @@ var ak_unlocked = false
 @export var max_health: int = 3
 var current_health: int = 3
 
+var current_xp: int = 0
+var max_xp: int = 100
+var current_level: int = 1
+
 var speed: float  = 200
 var dash_speed = 800
 var dash_time = 0.2
@@ -276,8 +280,15 @@ func unlock_ak47():
 	ak_unlocked = true
 	print("ak_unlocked")
 
-
-
+func add_xp(amount: int) -> void:
+	current_xp += amount
+	
+	while current_xp >= max_xp:
+		current_xp -= max_xp
+		current_level += 1
+		max_xp = int(max_xp * 1.5)
+		print("leveld up! Current level: ", current_level)
+		
 func heal(amount):
 	current_health = min(current_health + amount, max_health)
 	health_changed.emit()
