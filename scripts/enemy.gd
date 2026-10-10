@@ -13,6 +13,10 @@ extends CharacterBody2D
 @export var elite_scale = 1.5
 @export var is_elite = false
 
+@export_category("drops")
+@export var exp_gem_scene: PackedScene
+@export var exp_amount: int = 10
+@export_range(0.0, 1.0) var exp_drop_chance: float = 1.0
 
 @export var potion_scenes : Array[PackedScene] = []
 @export_range(0.0, 1.0) var potion_drop_chance: float = 0.2
@@ -43,6 +47,7 @@ func make_elite():
 	max_health *= elite_health_multi
 	current_health = max_health
 	contact_damage = int(contact_damage * elite_damage_multi)
+	exp_amount *= 2
 	
 	scale *= elite_scale
 	
@@ -194,9 +199,25 @@ func drop_ak():
 
 
 
-
-
-
+func  drop_exp() -> void:
+	if exp_gem_scene == null:
+		return
+	
+	var chance = exp_drop_chance
+	if is_instance_valid(player) and player.luck_activate:
+		chance *= player.luck_multiplier
+	chance = min(chance, 1.0)
+	
+	if randf() > chance:
+		return
+	
+	var exp_gem = exp_gem_scene.instantiate()
+	exp_gem.global_position = global_position
+	
+	if "exp_amount" in exp_gem:
+		exp_gem.exp_amount = exp_amount
+	
+	get_tree().current_scene.add_child(exp_gem)
 
 func die() -> void:
 	if is_dying:
@@ -217,6 +238,7 @@ func die() -> void:
 	drop_heal_potion()
 	drop_ak()
 	
+	drop_exp()
 	
 	queue_free()
 
