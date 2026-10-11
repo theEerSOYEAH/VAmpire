@@ -15,17 +15,10 @@
 [ext_resource type="Texture2D" uid="uid://del5d366r0gje" path="res://assets/Tilemap/monochrome_tilemap.png" id="11_eb6dy"]
 [ext_resource type="AudioStream" uid="uid://bs0x5tlasik2j" path="res://assets/Musical Effects/Roblox Doors Soundtrack Elevator Jam (Looped 10 Min) - Idiocrity (128k).mp3" id="16_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://dvddycxg7ih3m" path="res://scenes/level_up_menu.tscn" id="16_muem4"]
-[ext_resource type="PackedScene" uid="uid://b4fd8xkxfkdoa" path="res://assets/magnet.tscn" id="17_muem4"]
 
 [sub_resource type="Resource" id="Resource_tefeu"]
 script = ExtResource("4_o6xl0")
 enemy_scene = ExtResource("1_sugp2")
-metadata/_custom_type_script = "uid://nrlpxynp14r7"
-
-[sub_resource type="Resource" id="Resource_otmr2"]
-script = ExtResource("4_o6xl0")
-enemy_scene = ExtResource("5_jbj1t")
-count = 1
 metadata/_custom_type_script = "uid://nrlpxynp14r7"
 
 [sub_resource type="Resource" id="Resource_tbgi4"]
@@ -536,7 +529,6 @@ waves = Array[ExtResource("3_tefeu")]([SubResource("Resource_tbgi4"), SubResourc
 z_index = 1
 position = Vector2(323, 162)
 ak_unlocked = false
-max_health = 8995
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1050405216]
 environment = SubResource("Environment_e6q6n")

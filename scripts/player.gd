@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal health_changed
+signal  	health_changed
 
 var total_gun_ammo = 80
 var total_ak_ammo = 180
@@ -496,6 +496,7 @@ func heal(amount):
 	
 
 func _ready():
+	print(max_health, current_health)
 	speed_bar.visible = false
 	ammo.text = str(current_ak_ammo,"/",total_ak_ammo)
 	current_health = max_health
