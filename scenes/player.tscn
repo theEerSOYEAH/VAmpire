@@ -487,6 +487,13 @@ texture = ExtResource("18_fulsm")
 position = Vector2(-0.5, 1)
 shape = SubResource("RectangleShape2D_3gb63")
 
+[node name="kill count" type="Label" parent="." unique_id=985092848]
+offset_left = 173.0
+offset_top = -50.0
+offset_right = 283.0
+offset_bottom = 3.0
+text = "0"
+
 [connection signal="body_entered" from="hand/sword" to="hand/sword" method="_on_body_entered"]
 [connection signal="area_entered" from="Knife" to="Knife" method="_on_area_entered"]
 [connection signal="body_entered" from="Knife" to="Knife" method="_on_body_entered"]

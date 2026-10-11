@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://brre8s65t8jyg" path="res://scenes/gun_ammo.tscn" id="14_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://dxy60dtkpj1rp" path="res://scenes/ak_ammo.tscn" id="15_jkv2x"]
 [ext_resource type="AudioStream" uid="uid://bs0x5tlasik2j" path="res://assets/Musical Effects/Roblox Doors Soundtrack Elevator Jam (Looped 10 Min) - Idiocrity (128k).mp3" id="16_jbj1t"]
+[ext_resource type="PackedScene" uid="uid://b4fd8xkxfkdoa" path="res://assets/magnet.tscn" id="17_muem4"]
 
 [sub_resource type="Resource" id="Resource_tefeu"]
 script = ExtResource("4_o6xl0")
@@ -556,3 +557,6 @@ position = Vector2(463, 265)
 
 [node name="ak_ammo5" parent="." unique_id=199397901 instance=ExtResource("15_jkv2x")]
 position = Vector2(415, 249)
+
+[node name="magnet" parent="." unique_id=1947293888 instance=ExtResource("17_muem4")]
+position = Vector2(302, 235)

@@ -2,6 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="1_egph7"]
 [ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_tlehe"]
+[ext_resource type="PackedScene" uid="uid://c7cyyt0i0h3ma" path="res://scenes/freeze_drop.tscn" id="2_3ljvb"]
+[ext_resource type="PackedScene" uid="uid://cnnsggfx2ie8m" path="res://scenes/nuke.tscn" id="3_dvqnm"]
+[ext_resource type="PackedScene" uid="uid://ba1cbcs652eyo" path="res://scenes/stgn_ammo.tscn" id="4_jywxv"]
+[ext_resource type="PackedScene" uid="uid://dxy60dtkpj1rp" path="res://scenes/ak_ammo.tscn" id="5_1x65w"]
+[ext_resource type="PackedScene" uid="uid://brre8s65t8jyg" path="res://scenes/gun_ammo.tscn" id="6_n4nl8"]
+[ext_resource type="PackedScene" uid="uid://76ih3oal6fyu" path="res://scenes/exp_gem.tscn" id="7_xhwqk"]
+[ext_resource type="PackedScene" uid="uid://3jgwq85fi4vy" path="res://scenes/drop_ak.tscn" id="8_p2naf"]
+[ext_resource type="PackedScene" uid="uid://1pgjgdv3nmco" path="res://scenes/drop_stgn.tscn" id="9_07eek"]
+[ext_resource type="PackedScene" uid="uid://cxgf06r4dx58v" path="res://scenes/heal_potion.tscn" id="10_hbl0y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yf6fp"]
 atlas = ExtResource("1_egph7")
@@ -69,6 +78,16 @@ collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_tlehe")
 max_health = 10.0
+freeze_drop_scene = ExtResource("2_3ljvb")
+nuke_drop_scene = ExtResource("3_dvqnm")
+stgn_ammo_scene = ExtResource("4_jywxv")
+ak_ammo_scene = ExtResource("5_1x65w")
+gun_ammo_scene = ExtResource("6_n4nl8")
+exp_gem_scene = ExtResource("7_xhwqk")
+nuke_drop_chance = 0.0
+ak_drop_scene = ExtResource("8_p2naf")
+stgn_drop_scene = ExtResource("9_07eek")
+health_potion_scene = ExtResource("10_hbl0y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1243794773]
 position = Vector2(0, -11)

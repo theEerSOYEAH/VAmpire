@@ -20,6 +20,7 @@ var speed: float = 100.0
 var player = null
 
 func  _ready() -> void:
+	add_to_group("enemy")
 	current_health = max_health
 	player = get_tree().current_scene.find_child("player", true, false)
 	shoot_timer.timeout.connect(start_charge)

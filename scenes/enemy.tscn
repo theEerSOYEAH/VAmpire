@@ -4,11 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_4ra3w"]
 [ext_resource type="PackedScene" uid="uid://db06cpreabyqw" path="res://scenes/speed_potion.tscn" id="2_5uy6h"]
 [ext_resource type="PackedScene" uid="uid://ba1cbcs652eyo" path="res://scenes/stgn_ammo.tscn" id="2_8qclf"]
+[ext_resource type="PackedScene" uid="uid://b4fd8xkxfkdoa" path="res://assets/magnet.tscn" id="2_j0cyh"]
 [ext_resource type="PackedScene" uid="uid://dxy60dtkpj1rp" path="res://scenes/ak_ammo.tscn" id="2_md484"]
 [ext_resource type="PackedScene" uid="uid://76ih3oal6fyu" path="res://scenes/exp_gem.tscn" id="2_nenq2"]
 [ext_resource type="PackedScene" uid="uid://bpkmrtibqy7im" path="res://scenes/noob.tscn" id="2_w8i8w"]
 [ext_resource type="PackedScene" uid="uid://cxgf06r4dx58v" path="res://scenes/heal_potion.tscn" id="3_5uy6h"]
 [ext_resource type="PackedScene" uid="uid://3jgwq85fi4vy" path="res://scenes/drop_ak.tscn" id="3_c4w8v"]
+[ext_resource type="PackedScene" uid="uid://cnnsggfx2ie8m" path="res://scenes/nuke.tscn" id="3_otmr2"]
+[ext_resource type="PackedScene" uid="uid://c7cyyt0i0h3ma" path="res://scenes/freeze_drop.tscn" id="3_wtq4b"]
 [ext_resource type="AudioStream" uid="uid://bbb7gy64b64qc" path="res://assets/Combat and Gore/kick.wav" id="6_xwavj"]
 [ext_resource type="PackedScene" uid="uid://1pgjgdv3nmco" path="res://scenes/drop_stgn.tscn" id="7_ipns3"]
 
@@ -123,13 +126,19 @@ collision_layer = 4
 collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_md0e3")
+drop_magnet_scene = ExtResource("2_j0cyh")
+magnet_drop_chance = 1.0
 max_health = 20.0
 noob_scene = ExtResource("2_w8i8w")
 elite_chance = 0.107
+freeze_drop_scene = ExtResource("3_wtq4b")
+nuke_drop_scene = ExtResource("3_otmr2")
 stgn_ammo_scene = ExtResource("2_8qclf")
 ak_ammo_scene = ExtResource("2_md484")
 gun_ammo_scene = SubResource("PackedScene_md484")
 exp_gem_scene = ExtResource("2_nenq2")
+freeze_drop_chance = 0.155
+nuke_drop_chance = 0.0
 potion_scenes = Array[PackedScene]([ExtResource("2_5uy6h")])
 ak_drop_scene = ExtResource("3_c4w8v")
 stgn_drop_scene = ExtResource("7_ipns3")
