@@ -23,6 +23,7 @@ func _ready() -> void:
 	
 	await get_tree().process_frame
 	for card in [card_health, card_speed, card_knife]:
+		card.focus_mode = Control.FOCUS_NONE
 		card.pivot_offset = card.size / 2
 		card.mouse_entered.connect(func(): _scale_card(card, Vector2(1.08, 1.08), 0.15))
 		card.mouse_exited.connect(func(): _scale_card(card, Vector2(1.0, 1.0), 0.15))
@@ -32,6 +33,9 @@ func _scale_card(card: Control, target_scale: Vector2, duration: float) -> void:
 	tween.tween_property(card, "scale", target_scale, duration)
 
 func show_menu() -> void:
+	for card in [card_health, card_knife, card_speed]:
+		card.disabled = false
+		card.scale = Vector2.ONE
 	visible = true
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -51,6 +55,8 @@ func show_menu() -> void:
 	tween.tween_property(card_knife, "modulate:a", 1.0, 0.3)
 
 func hide_menu() -> void:
+	for card in [card_health, card_speed, card_knife]:
+		card.disabled = true
 	var tween = create_tween().set_parallel(true)
 	tween.tween_property(background, "modulate:a", 0.0, 0.2)
 	tween.tween_property(card_health, "modulate:a", 0.0, 0.2)
