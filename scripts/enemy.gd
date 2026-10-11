@@ -5,6 +5,13 @@ extends CharacterBody2D
 @export var max_health: float = 100.0
 @export var knockback_force: float = 600.0
 
+@export_category("summoner")
+@export var is_summoner:bool = false
+@export var noob_scene : PackedScene
+@export var summon_distance = 150
+@export var noob_count = 4 
+
+var has_summoned = false
 
 @export_category("elite")
 @export_range(0.0, 1.0) var elite_chance : float = 1.0
@@ -40,8 +47,28 @@ var is_dying: bool = false
 static var elite_spawned = 0
 var elite_number = 0
 
-@onready var hitbox: Area2D = $Hitbox
+
 @onready var damage_timer: Timer = $DamageTimer
+@onready var hitbox: Area2D = $Hitbox
+
+
+func summon_noobs():
+	if has_summoned or noob_scene == null:
+		return
+	
+	has_summoned = true
+	
+	for i in range(noob_count):
+		var noob = noob_scene.instantiate()
+		var angle = TAU*i / noob_count
+		var spawn_offset = Vector2.RIGHT.rotated(angle) * 60
+		
+		get_tree().current_scene.add_child(noob)
+		noob.global_position = global_position + spawn_offset
+		
+		
+	print("summoner spawneds", noob_count)
+
 
 
 func make_elite():
@@ -68,9 +95,7 @@ func make_elite():
 
 
 
-	hitbox.area_entered.connect(_on_hitbox_area_entered)
-	hitbox.area_exited.connect(_on_hitbox_area_exited)
-	damage_timer.timeout.connect(_on_damage_timer_timeout)
+	
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	var target = area.owner
@@ -83,11 +108,22 @@ func _on_hitbox_area_exited(area: Area2D) -> void:
 	if area == player_ref:
 		player_ref = null
 		damage_timer.stop()
+
+
+
+
 func _ready() -> void:
 	add_to_group("enemy")
 	current_health = max_health
-	player = get_tree().get_first_node_in_group("player")
-	
+	print("Enemy scene: ", scene_file_path)
+	print("Hitbox found: ", hitbox)
+	hitbox.area_entered.connect(_on_hitbox_area_entered)
+	hitbox.area_exited.connect(_on_hitbox_area_exited)
+	damage_timer.timeout.connect(_on_damage_timer_timeout)
+	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
+	if not is_summoner:
+		has_summoned = true
+	print(name,"playerfound", player)
 	
 	print("Enemy spawned: ", name, " | Elite chance: ", elite_chance, " | Already spawned: ", elite_spawned)
 
@@ -113,6 +149,9 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if player:
+		if is_summoner and not has_summoned:
+			if global_position.distance_to(player.global_position) <= summon_distance:
+				summon_noobs()
 		var kb_direction := global_position.direction_to(player.global_position)
 		
 		knockback = knockback.lerp(Vector2.ZERO, 10.0 * delta)
@@ -176,7 +215,7 @@ func drop_stgn_ammo():
 	var chance = stgn_ammo_drop_chance
 	
 	if is_instance_valid(player) and player.luck_activate:
-		chance += player.luck_multiplier
+		chance *= player.luck_multiplier
 	chance = min(chance, 1)
 	if randf()> chance:
 		return
@@ -303,15 +342,26 @@ func die() -> void:
 		return
 	is_dying = true
 	
+	
+	set_physics_process(false)
+	velocity = Vector2.ZERO
+	
+	
 	$Hitbox.monitoring = false
 	if has_node("CollisionShape2D"):
 		$CollisionShape2D.set_deferred("disabled", true)
 	
-	$AnimatedSprite2D.play("die")
-	$death.play()
-	
-	
-	await $AnimatedSprite2D.animation_finished
+	if $AnimatedSprite2D.sprite_frames.has_animation("die"):
+		$AnimatedSprite2D.play("die")
+		if has_node("death"):
+			$death.play()
+		await $AnimatedSprite2D.animation_finished
+	else:
+		
+		if has_node("death"):
+			$death.play()
+		await get_tree().create_timer(0.3).timeout
+
 	
 	drop_potion()
 	drop_heal_potion()
@@ -322,7 +372,7 @@ func die() -> void:
 	drop_gun_ammo()
 	drop_ak_ammo()
 	drop_stgn_ammo()
-	drop_ak()
+	
 	
 	drop_exp()
 	
