@@ -20,8 +20,11 @@ var current_stgn_ammo = 6
 @onready var potion_particles: CPUParticles2D = $health_particle
 @onready var speed_particles: CPUParticles2D = $speed_particle
 @onready var luck_particles: CPUParticles2D = $luck_particle
+@onready var knife: Area2D = $Knife
+@export var knife_unlocked: bool = false
 
 @export var game_over_scene: PackedScene
+@export var level_up_scene: PackedScene
 
 @export var shoot_cooldown = 0.4
 var shoot_timer = 0
@@ -440,6 +443,9 @@ func unlock_ak47():
 func unlock_stgn():
 	stgn_unlocked = true
 
+func unlock_knife():
+	knife_unlocked = true
+
 func add_xp(amount: int) -> void:
 	current_xp += amount
 	
@@ -449,6 +455,16 @@ func add_xp(amount: int) -> void:
 		max_xp = int(max_xp * 1.5)
 		print("leveld up! Current level: ", current_level)
 		
+		trigger_level_up()
+func trigger_level_up() -> void:
+	get_tree().paused = true
+	
+	if level_up_scene:
+		var menu = level_up_scene.instantiate()
+		get_tree().current_scene.add_child(menu)
+	else:
+		print("level up scene not defined")
+
 func heal(amount):
 	current_health = min(current_health + amount, max_health)
 	health_changed.emit()
@@ -463,4 +479,6 @@ func _ready():
 	ak47.visible = false
 	sword.visible = false
 	stgn.visible = false
+	if knife:
+		knife.visible = false
 	hand.current_distance = gun_hand_distance
