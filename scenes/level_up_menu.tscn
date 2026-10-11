@@ -33,24 +33,13 @@ offset_left = 94.0
 offset_top = 137.0
 offset_right = 334.0
 offset_bottom = 497.0
-
-[node name="Button" type="Button" parent="Card" unique_id=620904478]
-layout_mode = 0
-offset_right = 238.0
-offset_bottom = 359.0
-flat = true
+mouse_filter = 1
 
 [node name="CardSpeed" parent="." unique_id=1545110975 instance=ExtResource("3_vtln1")]
 offset_left = 469.0
 offset_top = 137.0
 offset_right = 709.0
 offset_bottom = 497.0
-
-[node name="Button" type="Button" parent="CardSpeed" unique_id=1441016461]
-layout_mode = 0
-offset_right = 238.0
-offset_bottom = 359.0
-flat = true
 
 [node name="Card_Knife_Unlock" type="TextureButton" parent="." unique_id=1996351858]
 process_mode = 3
@@ -134,12 +123,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="Card_Knife_Unlock" unique_id=1365603833]
-layout_mode = 0
-offset_right = 238.0
-offset_bottom = 359.0
-flat = true
-
-[connection signal="pressed" from="Card/Button" to="." method="_on_health_card_pressed"]
-[connection signal="pressed" from="CardSpeed/Button" to="." method="_on_speed_card_pressed"]
-[connection signal="pressed" from="Card_Knife_Unlock/Button" to="." method="_on_knife_card_pressed"]
+[connection signal="pressed" from="Card" to="." method="_on_health_card_pressed"]
+[connection signal="pressed" from="CardSpeed" to="." method="_on_speed_card_pressed"]
+[connection signal="pressed" from="Card_Knife_Unlock" to="." method="_on_knife_card_pressed"]
