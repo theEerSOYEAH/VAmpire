@@ -13,12 +13,6 @@
 process_mode = 3
 script = ExtResource("1_buj6g")
 
-[node name="TitleLabel" type="Label" parent="." unique_id=1117861195]
-offset_left = 52.0
-offset_top = 160.0
-offset_right = 1100.0
-offset_bottom = 183.0
-
 [node name="Background" type="ColorRect" parent="." unique_id=1731622970]
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,25 +23,25 @@ mouse_filter = 2
 color = Color(0.12, 0.12, 0.12, 1)
 
 [node name="Card" parent="." unique_id=87504485 instance=ExtResource("2_vnbc4")]
-offset_left = 94.0
-offset_top = 137.0
-offset_right = 334.0
-offset_bottom = 497.0
+offset_left = 91.0
+offset_top = 141.0
+offset_right = 331.0
+offset_bottom = 501.0
 mouse_filter = 1
 
 [node name="CardSpeed" parent="." unique_id=1545110975 instance=ExtResource("3_vtln1")]
-offset_left = 469.0
-offset_top = 137.0
-offset_right = 709.0
-offset_bottom = 497.0
+offset_left = 466.0
+offset_top = 141.0
+offset_right = 706.0
+offset_bottom = 501.0
 
 [node name="Card_Knife_Unlock" type="TextureButton" parent="." unique_id=1996351858]
 process_mode = 3
 custom_minimum_size = Vector2(200, 300)
-offset_left = 837.0
-offset_top = 137.0
-offset_right = 1077.0
-offset_bottom = 497.0
+offset_left = 834.0
+offset_top = 141.0
+offset_right = 1074.0
+offset_bottom = 501.0
 
 [node name="Background" type="NinePatchRect" parent="Card_Knife_Unlock" unique_id=300319871]
 layout_mode = 1
@@ -122,6 +116,29 @@ text = "KNIFE UNLOCKS"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="Level_label" type="Label" parent="." unique_id=1188657192]
+z_index = 1
+offset_left = 277.0
+offset_top = -28.0
+offset_right = 907.0
+offset_bottom = 109.0
+theme_override_constants/outline_size = 21
+theme_override_fonts/font = ExtResource("6_jqsxd")
+theme_override_font_sizes/font_size = 92
+text = "LEVEL UP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="." unique_id=580284192]
+offset_left = 428.0
+offset_top = 85.0
+offset_right = 771.0
+offset_bottom = 130.0
+theme_override_constants/shadow_offset_y = 22
+theme_override_fonts/font = ExtResource("6_jqsxd")
+theme_override_font_sizes/font_size = 34
+text = "CHOOSE AN UPGRADE"
 
 [connection signal="pressed" from="Card" to="." method="_on_health_card_pressed"]
 [connection signal="pressed" from="CardSpeed" to="." method="_on_speed_card_pressed"]
