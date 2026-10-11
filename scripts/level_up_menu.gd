@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+@onready var level_lable = $Level_label
 @onready var background = $Background
 @onready var card_health = $Card
 @onready var card_speed = $CardSpeed
@@ -10,6 +11,7 @@ func _ready() -> void:
 	visible = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
+	level_lable.modulate.a = 0.0
 	background.modulate.a = 0.0
 	card_health.modulate.a = 0.0
 	card_speed.modulate.a = 0.0
@@ -34,12 +36,17 @@ func show_menu() -> void:
 	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
+	var player = get_tree().get_first_node_in_group("player")
+	if player and "current_level" in player:
+		level_lable.text = "LEVEL " + str(player.current_level)
+	
 	for card in [card_health, card_speed, card_knife]:
 		card.scale = Vector2.ONE
 	
 	var tween = create_tween().set_parallel(true)
-	tween.tween_property(background, "modulate:a", 1.0, 0.3)
+	tween.tween_property(background, "modulate:a", 3.0, 0.3)
 	tween.tween_property(card_health, "modulate:a", 1.0, 0.3)
+	tween.tween_property(level_lable, "modulate:a", 1.0, 0.3)
 	tween.tween_property(card_speed, "modulate:a", 1.0, 0.3)
 	tween.tween_property(card_knife, "modulate:a", 1.0, 0.3)
 
