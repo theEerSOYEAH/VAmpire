@@ -246,7 +246,7 @@ autoplay = "idle"
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_e6q6n")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1393552562]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1393552562 groups=["camera"]]
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 script = ExtResource("3_qhqgy")
