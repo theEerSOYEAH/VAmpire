@@ -21,19 +21,24 @@ var current_stgn_ammo = 6
 @onready var speed_particles: CPUParticles2D = $speed_particle
 @onready var luck_particles: CPUParticles2D = $luck_particle
 @onready var knife: Area2D = $Knife
+@onready var speed_bar: TextureProgressBar = $CanvasLayer/speed_bar
+@onready var speed_label = $CanvasLayer/speed_label
+
+var speed_boost_timer: float = 0.0
+
 @export var knife_unlocked: bool = false
 
 @export var game_over_scene: PackedScene
 @export var level_up_scene: PackedScene
 
 @export var shoot_cooldown = 0.4
-var shoot_timer = 0
+var shoot_timer = 0.0
 
 @export var ak_shoot_cooldown = 0.1
-var ak_shoot_timer = 0
+var ak_shoot_timer = 0.0
 
 @export var stgn_shoot_cooldown = 0.5
-var stgn_shoot_timer = 0
+var stgn_shoot_timer = 0.0
 
 @export var bullet_scene: PackedScene
 @onready var gun: Node2D =  $hand/gun
@@ -67,7 +72,7 @@ var current_weapon = "gun"
 var current_health: int = 3
 
 var current_xp: int = 0
-var max_xp: int = 100
+var max_xp: int = 10
 var current_level: int = 1
 
 var speed: float  = 200
@@ -132,13 +137,13 @@ func activate_luck(duration):
 func speed_boost(amount: float, duration: float):
 	print("DEDECTED")
 	speed = base_speed + amount
-	
+	speed_boost_timer = duration
 	speed_particles.restart()
 	
-	await get_tree().create_timer(duration).timeout
+	speed_bar.max_value = duration
+	speed_bar.value = duration
+	speed_bar.visible = true
 	
-	speed = base_speed
-
 func _physics_process(delta):
 	if is_dying:
 		return
@@ -174,7 +179,16 @@ func _physics_process(delta):
 		cooldown_label.text = "%.1f" %cooldown_timer
 	else:
 		cooldown_label.text = ""
-
+	
+	if speed_boost_timer > 0:
+		speed_boost_timer -= delta
+		speed_bar.value = speed_boost_timer
+		speed_label.text = "Speed Boost: %.1f " % speed_boost_timer + "s"
+		if speed_boost_timer <= 0:
+			speed = base_speed
+			speed_label.text = ""
+			speed_bar.visible = false
+	
 	if current_weapon == "gun":
 		if Input.is_action_pressed("shoot") and shoot_timer <= 0:
 			shoot()
@@ -468,6 +482,7 @@ func heal(amount):
 	
 
 func _ready():
+	speed_bar.visible = false
 	ammo.text = str(current_ak_ammo,"/",total_ak_ammo)
 	current_health = max_health
 	gun.visible = true
