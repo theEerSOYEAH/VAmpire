@@ -1,17 +1,145 @@
 [gd_scene format=3 uid="uid://dvddycxg7ih3m"]
 
+[ext_resource type="Script" uid="uid://duxicw0ltn5n8" path="res://scripts/level_up_menu.gd" id="1_buj6g"]
+[ext_resource type="PackedScene" uid="uid://cxk8tlfvvpfft" path="res://scenes/card.tscn" id="2_vnbc4"]
+[ext_resource type="PackedScene" uid="uid://d22cv75pdadtb" path="res://scenes/card_speed.tscn" id="3_vtln1"]
+[ext_resource type="Texture2D" uid="uid://deglnvix4shgw" path="res://assets/basic white/button wider clicked.png" id="4_2tu1p"]
+[ext_resource type="Texture2D" uid="uid://bj1eb8r1tpn0v" path="res://assets/basic white/ribbon.png" id="5_pwcma"]
+[ext_resource type="FontFile" uid="uid://cta2eeoysdh3d" path="res://assets/LilitaOne-Regular.ttf" id="6_jqsxd"]
+[ext_resource type="Texture2D" uid="uid://cs78hjwe4mya4" path="res://assets/basic white/button square idle.png" id="7_nradq"]
+[ext_resource type="Texture2D" uid="uid://eu34nd24lami" path="res://assets/basic white/star empty.png" id="8_xybyi"]
+
 [node name="LevelUpMenu" type="CanvasLayer" unique_id=1525341240]
 process_mode = 3
+script = ExtResource("1_buj6g")
 
-[node name="Control" type="Control" parent="." unique_id=641367869]
-layout_mode = 3
+[node name="TitleLabel" type="Label" parent="." unique_id=1117861195]
+offset_left = 52.0
+offset_top = 160.0
+offset_right = 1100.0
+offset_bottom = 183.0
+
+[node name="Background" type="ColorRect" parent="." unique_id=1731622970]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+color = Color(0.12, 0.12, 0.12, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=400098048]
+[node name="Card" parent="." unique_id=87504485 instance=ExtResource("2_vnbc4")]
+offset_left = 94.0
+offset_top = 137.0
+offset_right = 334.0
+offset_bottom = 497.0
+
+[node name="Button" type="Button" parent="Card" unique_id=620904478]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 238.0
+offset_bottom = 359.0
+flat = true
+
+[node name="CardSpeed" parent="." unique_id=1545110975 instance=ExtResource("3_vtln1")]
+offset_left = 469.0
+offset_top = 137.0
+offset_right = 709.0
+offset_bottom = 497.0
+
+[node name="Button" type="Button" parent="CardSpeed" unique_id=1441016461]
+layout_mode = 0
+offset_right = 238.0
+offset_bottom = 359.0
+flat = true
+
+[node name="Card_Knife_Unlock" type="TextureButton" parent="." unique_id=1996351858]
+process_mode = 3
+custom_minimum_size = Vector2(200, 300)
+offset_left = 837.0
+offset_top = 137.0
+offset_right = 1077.0
+offset_bottom = 497.0
+
+[node name="Background" type="NinePatchRect" parent="Card_Knife_Unlock" unique_id=300319871]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_2tu1p")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Card_Knife_Unlock" unique_id=667801471]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 18.0
+offset_right = 226.0
+offset_bottom = 64.0
+texture = ExtResource("5_pwcma")
+
+[node name="Label" type="Label" parent="Card_Knife_Unlock/NinePatchRect" unique_id=1740634169]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 18.0
+offset_top = 6.0
+offset_right = -22.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("6_jqsxd")
+theme_override_font_sizes/font_size = 24
+text = "UNLOCK KNIFE"
+horizontal_alignment = 1
+
+[node name="IconFrame" type="NinePatchRect" parent="Card_Knife_Unlock" unique_id=1602477085]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 0
+offset_left = 27.0
+offset_top = 62.0
+offset_right = 217.0
+offset_bottom = 343.0
+texture = ExtResource("7_nradq")
+patch_margin_left = 32
+patch_margin_top = 32
+patch_margin_right = 32
+patch_margin_bottom = 32
+
+[node name="Icon" type="TextureRect" parent="Card_Knife_Unlock/IconFrame" unique_id=105157489]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 18.0
+offset_right = 226.0
+offset_bottom = 198.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_xybyi")
+
+[node name="Label" type="Label" parent="Card_Knife_Unlock" unique_id=157245907]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 177.0
+offset_right = 205.0
+offset_bottom = 200.0
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("6_jqsxd")
+theme_override_font_sizes/font_size = 41
+text = "KNIFE UNLOCKS"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="Card_Knife_Unlock" unique_id=1365603833]
+layout_mode = 0
+offset_right = 238.0
+offset_bottom = 359.0
+flat = true
+
+[connection signal="pressed" from="Card/Button" to="." method="_on_health_card_pressed"]
+[connection signal="pressed" from="CardSpeed/Button" to="." method="_on_speed_card_pressed"]
+[connection signal="pressed" from="Card_Knife_Unlock/Button" to="." method="_on_knife_card_pressed"]
