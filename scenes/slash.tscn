@@ -1,23 +1,24 @@
 [gd_scene format=3 uid="uid://cme664uq30f5a"]
 
 [ext_resource type="Script" uid="uid://b56nlnctktyya" path="res://scenes/slash.gd" id="1_3c2nd"]
-[ext_resource type="Texture2D" uid="uid://18a45nts14nr" path="res://icon.svg" id="1_rkylg"]
+[ext_resource type="Texture2D" uid="uid://cicgmlpdj01p" path="res://assets/Sprite-0001.png" id="2_3c2nd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h621j"]
-size = Vector2(16, 4)
+size = Vector2(9, 22)
 
 [node name="slash" type="Area2D" unique_id=1149990547]
+position = Vector2(-10, 0)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_3c2nd")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=725730866]
 position = Vector2(-4.7683716e-07, -0.9999998)
-scale = Vector2(0.12109375, 0.031249998)
-texture = ExtResource("1_rkylg")
+scale = Vector2(1, 1.375)
+texture = ExtResource("2_3c2nd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1738669376]
-position = Vector2(0, -1)
+position = Vector2(-1.5, -1)
 shape = SubResource("RectangleShape2D_h621j")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
