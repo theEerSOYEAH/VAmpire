@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cbn2ehehgi45s" path="res://assets/ROBO_WITHOUT HANDS.png" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://dwixbq018e4gy" path="res://scenes/bullet.tscn" id="2_tuyoq"]
 [ext_resource type="PackedScene" uid="uid://bakaov5cwwkes" path="res://scenes/game_over_menu.tscn" id="2_y4r1p"]
+[ext_resource type="PackedScene" uid="uid://dvddycxg7ih3m" path="res://scenes/level_up_menu.tscn" id="3_60mlk"]
 [ext_resource type="Script" uid="uid://cj2emipxg48vs" path="res://scripts/camera_2d.gd" id="3_qhqgy"]
 [ext_resource type="Script" uid="uid://velb87kfafsj" path="res://scripts/hand.gd" id="4_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="5_tuyoq"]
@@ -15,7 +16,11 @@
 [ext_resource type="PackedScene" uid="uid://cme664uq30f5a" path="res://scenes/slash.tscn" id="9_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://bt2fc8semi0cv" path="res://assets/Weapons/sword_slice.wav" id="10_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://c0tj4ecmjtqks" path="res://assets/Weapons/harsh_thud.wav" id="13_jej6c"]
+[ext_resource type="FontFile" uid="uid://cta2eeoysdh3d" path="res://assets/LilitaOne-Regular.ttf" id="14_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://bp1ebef7c4kyj" path="res://assets/Weapons/shot_muffled.wav" id="15_oprun"]
+[ext_resource type="Script" uid="uid://cx5exfblt3x74" path="res://scenes/knife.gd" id="16_qfm1y"]
+[ext_resource type="PackedScene" uid="uid://dh0c6ekin26t" path="res://scenes/hit_particles.tscn" id="17_fulsm"]
+[ext_resource type="Texture2D" uid="uid://cputqp8cgjsd7" path="res://assets/Weapons/knife.png" id="18_fulsm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("2_g2els")
@@ -164,8 +169,56 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
+atlas = ExtResource("5_tuyoq")
+region = Rect2(176, 276, 16, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hg1o6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r5pv")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
+atlas = ExtResource("5_tuyoq")
+region = Rect2(290, 288, 29, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3gb63"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fulsm")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
+atlas = ExtResource("5_tuyoq")
+region = Rect2(256, 288, 32, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lnn63"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fc75"]
 size = Vector2(10, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gb63"]
+size = Vector2(19, 12)
 
 [node name="player" type="CharacterBody2D" unique_id=751367425 groups=["player"]]
 position = Vector2(0, -8)
@@ -173,6 +226,7 @@ collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_g2els")
 game_over_scene = ExtResource("2_y4r1p")
+level_up_scene = ExtResource("3_60mlk")
 bullet_scene = ExtResource("2_tuyoq")
 gun_hand_distance = 15.0
 sword_hand_distance = 20.0
@@ -255,20 +309,105 @@ sprite_frames = SubResource("SpriteFrames_po753")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1325551671]
 
+[node name="ammo_label" type="Label" parent="CanvasLayer" unique_id=588839085]
+offset_left = 1058.0
+offset_top = 595.0
+offset_right = 1110.0
+offset_bottom = 623.0
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("14_4r5pv")
+theme_override_font_sizes/font_size = 20
+
+[node name="pistol_panel" type="Node2D" parent="CanvasLayer" unique_id=163772827]
+position = Vector2(1022, 0)
+
+[node name="gun_label" type="Label" parent="CanvasLayer/pistol_panel" unique_id=1849100543]
+offset_left = 31.0
+offset_top = 531.0
+offset_right = 95.0
+offset_bottom = 555.0
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("14_4r5pv")
+theme_override_font_sizes/font_size = 20
+text = "PISTOL"
+
+[node name="ammo_label" type="Label" parent="CanvasLayer/pistol_panel" unique_id=1271372820]
+offset_left = 36.0
+offset_top = 595.0
+offset_right = 88.0
+offset_bottom = 623.0
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("14_4r5pv")
+theme_override_font_sizes/font_size = 20
+
+[node name="pistol_sprite" type="AnimatedSprite2D" parent="CanvasLayer/pistol_panel" unique_id=581557855]
+position = Vector2(62, 578)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_hg1o6")
+flip_h = true
+
 [node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1474006660]
 texture_filter = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -257.0
-offset_top = 1.0
-offset_right = -193.0
-offset_bottom = 41.0
+offset_left = -258.0
+offset_right = -194.0
+offset_bottom = 40.0
 grow_horizontal = 0
 scale = Vector2(4, 4)
 texture_under = ExtResource("7_ur7pv")
 texture_progress = ExtResource("8_y4r1p")
 script = ExtResource("7_fjrip")
+
+[node name="ak_panel" type="Node2D" parent="CanvasLayer" unique_id=1442743830]
+visible = false
+position = Vector2(1022, 0)
+
+[node name="gun_label" type="Label" parent="CanvasLayer/ak_panel" unique_id=262034695]
+offset_left = 37.0
+offset_top = 531.0
+offset_right = 89.0
+offset_bottom = 555.0
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("14_4r5pv")
+theme_override_font_sizes/font_size = 20
+text = "AK 47"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/ak_panel" unique_id=2132460081]
+position = Vector2(58, 570)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_3gb63")
+flip_h = true
+
+[node name="shotgun_panel" type="Node2D" parent="CanvasLayer" unique_id=765733403]
+visible = false
+position = Vector2(1022, 0)
+
+[node name="gun_label" type="Label" parent="CanvasLayer/shotgun_panel" unique_id=1084657296]
+offset_left = 19.0
+offset_top = 531.0
+offset_right = 105.0
+offset_bottom = 555.0
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("14_4r5pv")
+theme_override_font_sizes/font_size = 20
+text = "SHOTGUN"
+
+[node name="ammo_label" type="Label" parent="CanvasLayer/shotgun_panel" unique_id=666448025]
+offset_left = 36.0
+offset_top = 595.0
+offset_right = 88.0
+offset_bottom = 623.0
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("14_4r5pv")
+theme_override_font_sizes/font_size = 20
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/shotgun_panel" unique_id=2054277415]
+position = Vector2(57, 562)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_lnn63")
+flip_h = true
 
 [node name="Player_Hurtbox" type="Area2D" parent="." unique_id=1813066408]
 collision_layer = 8
@@ -277,13 +416,6 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Hurtbox" unique_id=770865902]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_8fc75")
-
-[node name="Label2" type="Label" parent="." unique_id=515231657]
-offset_left = -18.0
-offset_top = 11.0
-offset_right = 22.0
-offset_bottom = 34.0
-text = "ammo"
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1999671261]
 emitting = false
@@ -340,4 +472,21 @@ color = Color(0.3499999, 1, 0, 1)
 [node name="dash_sound" type="AudioStreamPlayer2D" parent="." unique_id=1935873584]
 stream = ExtResource("15_oprun")
 
+[node name="Knife" type="Area2D" parent="." unique_id=399000500]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("16_qfm1y")
+orbit_radius = 30.0
+cooldown_time = 2.0
+hit_particles = ExtResource("17_fulsm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Knife" unique_id=2128542308]
+texture = ExtResource("18_fulsm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Knife" unique_id=1341358824]
+position = Vector2(-0.5, 1)
+shape = SubResource("RectangleShape2D_3gb63")
+
 [connection signal="body_entered" from="hand/sword" to="hand/sword" method="_on_body_entered"]
+[connection signal="area_entered" from="Knife" to="Knife" method="_on_area_entered"]
+[connection signal="body_entered" from="Knife" to="Knife" method="_on_body_entered"]

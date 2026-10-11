@@ -9,7 +9,8 @@ func _on_body_entered(body: Node2D) -> void:
 	
 	if body.name == "player" and body.ak_unlocked:
 		body.total_ak_ammo += collectable_ak_ammo
-		if body.current_weapon == "ak47":
-			body.get_node("Label2").text = str(body.current_ak_ammo,"/",body.total_ak_ammo)
+		if body.has_method("update_ammo_ui"):
+			body.update_ammo_ui()
+		
 		visible = false
 		queue_free()

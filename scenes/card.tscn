@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://sp01ar7yjdj5" path="res://assets/basic white/heart empty.png" id="5_8w5pg"]
 
 [node name="Card" type="TextureButton" unique_id=87504485]
+process_mode = 3
+custom_minimum_size = Vector2(200, 300)
 offset_right = 240.0
 offset_bottom = 360.0
 

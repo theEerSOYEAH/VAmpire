@@ -15,12 +15,16 @@ var current_ak_ammo = 30
 var current_stgn_ammo = 6
 
 @onready var cooldown_label: Label = $Label
+@onready var ammo: Label = $CanvasLayer/ammo_label
 @onready var blood_particles: CPUParticles2D = $CPUParticles2D
 @onready var potion_particles: CPUParticles2D = $health_particle
 @onready var speed_particles: CPUParticles2D = $speed_particle
 @onready var luck_particles: CPUParticles2D = $luck_particle
+@onready var knife: Area2D = $Knife
+@export var knife_unlocked: bool = false
 
 @export var game_over_scene: PackedScene
+@export var level_up_scene: PackedScene
 
 @export var shoot_cooldown = 0.4
 var shoot_timer = 0
@@ -92,7 +96,7 @@ func reload():
 	
 	total_gun_ammo -= ammo_to_reload
 	current_gun_amo += ammo_to_reload
-	$Label2.text = str(current_gun_amo,"/",total_gun_ammo)
+	ammo.text = str(current_gun_amo,"/",total_gun_ammo)
 
 func stgn_reload():
 	var needed_stgn_ammo = stgn_mag - current_stgn_ammo
@@ -100,7 +104,7 @@ func stgn_reload():
 	
 	total_stgn_ammo -= stgn_ammo_to_reload
 	current_stgn_ammo += stgn_ammo_to_reload
-	$Label2.text = str(current_stgn_ammo,"/",total_stgn_ammo)
+	ammo.text = str(current_stgn_ammo,"/",total_stgn_ammo)
 
 
 
@@ -110,7 +114,7 @@ func ak_reload():
 	
 	total_ak_ammo -= ak_ammo_to_reload
 	current_ak_ammo += ak_ammo_to_reload
-	$Label2.text = str("ak" ,current_ak_ammo,"/",total_ak_ammo)
+	ammo.text = str(current_ak_ammo,"/",total_ak_ammo)
 
 func activate_luck(duration):
 	luck_multiplier = 2
@@ -220,14 +224,6 @@ func take_damage(amount: int):
 	if current_health <= 0:
 		die()
 
-
-
-
-
-
-
-
-
 	else:
 		is_hurt = true
 		blood_particles.restart()
@@ -238,7 +234,13 @@ func take_damage(amount: int):
 		await  $AnimatedSprite2D.animation_finished
 		is_hurt = false
 	
+func update_ammo_ui() -> void:
+	if current_weapon == "ak47":
+		var ammo_label = get_node_or_null("CanvasLayer/ammo_label")
+		if ammo_label:
+			ammo_label.text = str(current_ak_ammo, "/", total_ak_ammo)
 	
+
 func die():
 	if is_dying:
 		return
@@ -265,7 +267,7 @@ func shoot():
 		get_tree().current_scene.add_child(bullet)
 		$Camera2D.shake()
 		current_gun_amo -= 1
-		$Label2.text = str(current_gun_amo,"/",total_gun_ammo)
+		ammo.text = str(current_gun_amo,"/",total_gun_ammo)
 
 func shoot_ak47():
 	if not bullet_scene:
@@ -280,7 +282,7 @@ func shoot_ak47():
 		get_tree().current_scene.add_child(bullet)
 		$Camera2D.shake()
 		current_ak_ammo -= 1
-		$Label2.text = str("ak", current_ak_ammo,"/",total_ak_ammo)
+		ammo.text = str(current_ak_ammo,"/",total_ak_ammo)
 
 
 func shoot_stgn():
@@ -320,7 +322,7 @@ func shoot_stgn():
 	
 	current_stgn_ammo -= 1
 	$Camera2D.shake()
-	$Label2.text = str(current_stgn_ammo,"/",total_stgn_ammo)
+	ammo.text = str(current_stgn_ammo,"/",total_stgn_ammo)
 
 func _process(_delta):
 	# Sword attack
@@ -355,8 +357,10 @@ func switch_weapon():
 			ak47.visible = true 
 			stgn.visible = false
 			sword.visible = false
-			$Label2.text = str("ak", current_ak_ammo,"/",total_ak_ammo)
-
+			ammo.text = str(current_ak_ammo,"/",total_ak_ammo)
+			$CanvasLayer/shotgun_panel.visible = false
+			$CanvasLayer/pistol_panel.visible = false
+			$CanvasLayer/ak_panel.visible = true
 			hand.current_distance = ak_hand_distance
 		
 		elif stgn_unlocked:
@@ -365,7 +369,10 @@ func switch_weapon():
 			sword.visible = false
 			gun.visible= false
 			ak47.visible = false
-			$Label2.text = str(current_stgn_ammo, "/", total_stgn_ammo)
+			$CanvasLayer/shotgun_panel.visible = true
+			$CanvasLayer/ak_panel.visible = false
+			$CanvasLayer/pistol_panel.visible = false
+			ammo.text = str(current_stgn_ammo, "/", total_stgn_ammo)
 			hand.current_distance = stgn_hand_distance
 		
 		
@@ -376,8 +383,10 @@ func switch_weapon():
 			ak47.visible = false
 			sword.visible = true
 			stgn.visible = false
-			$Label2.text = str(" ")
-
+			ammo.text = str(" ")
+			$CanvasLayer/ak_panel.visible = false
+			$CanvasLayer/shotgun_panel.visible = false
+			$CanvasLayer/pistol_panel.visible = false
 			hand.current_distance = sword_hand_distance
 
 	elif current_weapon == "ak47":
@@ -388,8 +397,10 @@ func switch_weapon():
 			ak47.visible = false
 			sword.visible = false
 			stgn.visible = true
-			$Label2.text = str(current_stgn_ammo,"/",total_stgn_ammo)
-
+			ammo.text = str(current_stgn_ammo,"/",total_stgn_ammo)
+			$CanvasLayer/shotgun_panel.visible = true
+			$CanvasLayer/ak_panel.visible = false
+			$CanvasLayer/pistol_panel.visible = false
 			hand.current_distance = stgn_hand_distance
 
 
@@ -399,10 +410,9 @@ func switch_weapon():
 			sword.visible = true
 			ak47.visible = false
 			stgn.visible = false
-
-
-
-
+			$CanvasLayer/pistol_panel.visible = false
+			$CanvasLayer/ak_panel.visible = false
+			$CanvasLayer/shotgun_panel.visible = false
 
 	elif current_weapon == "stgn":
 		current_weapon = "sword"
@@ -410,7 +420,7 @@ func switch_weapon():
 		gun.visible = false
 		ak47.visible = false
 		stgn.visible = false
-		sword.visible = true	
+		sword.visible = true
 
 	else:
 		current_weapon = "gun"
@@ -418,7 +428,10 @@ func switch_weapon():
 		gun.visible = true
 		ak47.visible = false
 		sword.visible = false
-		$Label2.text = str(current_gun_amo ,"/",total_gun_ammo)
+		$CanvasLayer/pistol_panel.visible = true
+		$CanvasLayer/ak_panel.visible = false
+		$CanvasLayer/shotgun_panel.visible = false
+		ammo.text = str(current_gun_amo ,"/",total_gun_ammo)
 
 		hand.current_distance = gun_hand_distance
 
@@ -430,6 +443,9 @@ func unlock_ak47():
 func unlock_stgn():
 	stgn_unlocked = true
 
+func unlock_knife():
+	knife_unlocked = true
+
 func add_xp(amount: int) -> void:
 	current_xp += amount
 	
@@ -439,6 +455,16 @@ func add_xp(amount: int) -> void:
 		max_xp = int(max_xp * 1.5)
 		print("leveld up! Current level: ", current_level)
 		
+		trigger_level_up()
+func trigger_level_up() -> void:
+	get_tree().paused = true
+	
+	if level_up_scene:
+		var menu = level_up_scene.instantiate()
+		get_tree().current_scene.add_child(menu)
+	else:
+		print("level up scene not defined")
+
 func heal(amount):
 	current_health = min(current_health + amount, max_health)
 	health_changed.emit()
@@ -447,10 +473,12 @@ func heal(amount):
 	
 
 func _ready():
-	$Label2.text = str(current_ak_ammo,"/",total_ak_ammo)
+	ammo.text = str(current_ak_ammo,"/",total_ak_ammo)
 	current_health = max_health
 	gun.visible = true
 	ak47.visible = false
 	sword.visible = false
 	stgn.visible = false
+	if knife:
+		knife.visible = false
 	hand.current_distance = gun_hand_distance
