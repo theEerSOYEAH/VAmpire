@@ -57,7 +57,7 @@ func spawn_enemy(enemy_scene: PackedScene) -> void:
 		
 	var enemy = enemy_scene.instantiate()
 	
-	enemy.player = player
+	
 	
 	var random_angle := randf() * TAU
 	var spawn_pos := player.global_position + Vector2(cos(random_angle), sin(random_angle)) * spawn_radius
