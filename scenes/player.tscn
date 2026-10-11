@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bevv31qbvxtl2" path="res://assets/healthbarUnder.png" id="7_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://cs3i54c7shthr" path="res://assets/herosword.png" id="7_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://c6b8xhpqpq4j1" path="res://assets/healthbarProgress.png" id="8_y4r1p"]
+[ext_resource type="PackedScene" uid="uid://cme664uq30f5a" path="res://scenes/slash.tscn" id="9_a8ls1"]
 [ext_resource type="AudioStream" uid="uid://bt2fc8semi0cv" path="res://assets/Weapons/sword_slice.wav" id="10_f1ej7"]
 [ext_resource type="AudioStream" uid="uid://c0tj4ecmjtqks" path="res://assets/Weapons/harsh_thud.wav" id="13_jej6c"]
 [ext_resource type="AudioStream" uid="uid://bp1ebef7c4kyj" path="res://assets/Weapons/shot_muffled.wav" id="15_oprun"]
@@ -218,6 +219,7 @@ position = Vector2(5, -4)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("7_d2wvv")
+slash_scene = ExtResource("9_a8ls1")
 
 [node name="Sprite2D" type="Sprite2D" parent="hand/sword" unique_id=1731611365]
 position = Vector2(0, -5)
