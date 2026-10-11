@@ -121,13 +121,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8fc75"]
 size = Vector2(10, 16)
 
-[node name="Enemy" type="CharacterBody2D" unique_id=970275509]
+[node name="Enemy" type="CharacterBody2D" unique_id=970275509 groups=["enemy"]]
 collision_layer = 4
 collision_mask = 4
 motion_mode = 1
 script = ExtResource("1_md0e3")
 drop_magnet_scene = ExtResource("2_j0cyh")
-magnet_drop_chance = 1.0
+magnet_drop_chance = 0.107
 max_health = 20.0
 noob_scene = ExtResource("2_w8i8w")
 elite_chance = 0.107
@@ -138,7 +138,7 @@ ak_ammo_scene = ExtResource("2_md484")
 gun_ammo_scene = SubResource("PackedScene_md484")
 exp_gem_scene = ExtResource("2_nenq2")
 freeze_drop_chance = 0.155
-nuke_drop_chance = 0.0
+nuke_drop_chance = 0.053
 potion_scenes = Array[PackedScene]([ExtResource("2_5uy6h")])
 ak_drop_scene = ExtResource("3_c4w8v")
 stgn_drop_scene = ExtResource("7_ipns3")
