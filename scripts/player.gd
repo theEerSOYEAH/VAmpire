@@ -458,12 +458,7 @@ func add_xp(amount: int) -> void:
 		trigger_level_up()
 func trigger_level_up() -> void:
 	get_tree().paused = true
-	
-	if level_up_scene:
-		var menu = level_up_scene.instantiate()
-		get_tree().current_scene.add_child(menu)
-	else:
-		print("level up scene not defined")
+	$"../LevelUpMenu".show_menu()
 
 func heal(amount):
 	current_health = min(current_health + amount, max_health)
