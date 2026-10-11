@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://b4fd8xkxfkdoa"]
+
+[ext_resource type="Script" uid="uid://bxu72ecu0pxfw" path="res://magnet.gd" id="1_axep5"]
+[ext_resource type="Texture2D" uid="uid://18a45nts14nr" path="res://icon.svg" id="2_7iyrx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h621j"]
+size = Vector2(33, 26)
+
+[node name="magnet" type="Area2D" unique_id=1947293888]
+collision_mask = 2
+script = ExtResource("1_axep5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1410613442]
+position = Vector2(8.75, -12.500001)
+scale = Vector2(0.25390625, 0.19531251)
+texture = ExtResource("2_7iyrx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1385292882]
+position = Vector2(8.5, -13)
+shape = SubResource("RectangleShape2D_h621j")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
