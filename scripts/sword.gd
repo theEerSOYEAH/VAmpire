@@ -8,7 +8,7 @@ var attacking: bool = false
 var hit_enemies: Array = []
 
 
-
+@export var slash_scene : PackedScene
 
 
 func attack() -> void:
@@ -17,21 +17,21 @@ func attack() -> void:
 	if attacking:
 		return
 
-	attacking = true
-	hit_enemies.clear()
+	if slash_scene == null:
+		return
 
+	var slash = slash_scene.instantiate() 
+	get_tree().current_scene.add_child(slash)
+	var direction = (get_global_mouse_position() - global_position).normalized()
+	slash.global_position = global_position + direction * 20
+	slash.global_rotation = (get_global_mouse_position() - slash.global_position).angle()
 	$slash.play()
-
-	var start_rotation := rotation
-	var end_rotation := start_rotation + deg_to_rad(swing_angle)
-
-	var tween := create_tween()
-	tween.tween_property(self, "rotation", end_rotation, swing_time / 2)
-	tween.tween_property(self, "rotation", start_rotation, swing_time / 2)
-
-	await tween.finished
-
+	
+	await get_tree().create_timer(0.15).timeout
 	attacking = false
+
+
+
 
 
 func _on_body_entered(body: Node2D) -> void:
