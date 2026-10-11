@@ -432,7 +432,7 @@ func die(should_drop_loot:bool = true) -> void:
 	velocity = Vector2.ZERO
 	
 	
-	$Hitbox.monitoring = false
+	$Hitbox.set_deferred("monitoring", false)
 	if has_node("CollisionShape2D"):
 		$CollisionShape2D.set_deferred("disabled", true)
 	
@@ -448,7 +448,8 @@ func die(should_drop_loot:bool = true) -> void:
 		await get_tree().create_timer(0.3).timeout
 
 	killed_enemies += 1
-	$"kill count".text = str(killed_enemies)
+	if has_node("kill count"):
+		$"kill count".text = str(killed_enemies)
 
 	if drop_loot and should_drop_loot:
 		drop_potion()
@@ -465,21 +466,7 @@ func die(should_drop_loot:bool = true) -> void:
 	
 		drop_exp()
 		drop_magnet()
-	await $AnimatedSprite2D.animation_finished
-	
-	drop_potion()
-	drop_heal_potion()
-	if elite_number == 1:
-		drop_ak()
-	elif elite_number == 2:
-		drop_stgn()
-	drop_gun_ammo()
-	drop_ak_ammo()
-	drop_stgn_ammo()
-	drop_ak()
-	
-	drop_exp()
-	
+		
 	queue_free()
 	
 
