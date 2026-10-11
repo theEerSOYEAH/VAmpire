@@ -310,7 +310,6 @@ func die() -> void:
 	$AnimatedSprite2D.play("die")
 	$death.play()
 	
-	
 	await $AnimatedSprite2D.animation_finished
 	
 	drop_potion()
