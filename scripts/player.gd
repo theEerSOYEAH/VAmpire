@@ -165,6 +165,17 @@ func _physics_process(delta):
 		else:
 			$AnimatedSprite2D.play("idle")
 	
+	$CanvasLayer/reload_label.visible = false
+	
+	if current_ak_ammo == 0 and current_weapon == "ak47":
+		$CanvasLayer/reload_label.visible = true
+	
+	if current_gun_amo == 0 and current_weapon == "gun":
+		$CanvasLayer/reload_label.visible = true
+	
+	if current_stgn_ammo == 0 and current_weapon == "stgn":
+		$CanvasLayer/reload_label.visible = true
+	
 	if shoot_timer > 0:
 		shoot_timer -= delta
 	
@@ -435,6 +446,9 @@ func switch_weapon():
 		ak47.visible = false
 		stgn.visible = false
 		sword.visible = true
+		$CanvasLayer/shotgun_panel.visible = false
+		$CanvasLayer/ak_panel.visible = false
+		$CanvasLayer/pistol_panel.visible = false
 
 	else:
 		current_weapon = "gun"
