@@ -80,11 +80,24 @@ func take_damage(amount: int) -> void:
 	if current_health <= 0:
 		die()
 
-func die() -> void:
+var is_dying: bool = false
+
+func die(should_drop_loot: bool = false) -> void:
+	if is_dying:
+		return
+	is_dying = true
+	
+	set_physics_process(false)
+	velocity = Vector2.ZERO
+	shoot_timer.stop()
+	charge_sprite.visible = false
+	
 	$AnimatedSprite2D.play("die")
 	await $AnimatedSprite2D.animation_finished
-	drop_luck_potion()
-	drop_exp()
+	
+	if should_drop_loot:
+		drop_luck_potion()
+		drop_exp()
 	
 	queue_free()
 

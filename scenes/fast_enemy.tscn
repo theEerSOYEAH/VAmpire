@@ -1,10 +1,16 @@
 [gd_scene format=3 uid="uid://3bru522x0c3u"]
 
 [ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_7dcje"]
+[ext_resource type="PackedScene" uid="uid://c7cyyt0i0h3ma" path="res://scenes/freeze_drop.tscn" id="2_1xejb"]
 [ext_resource type="PackedScene" uid="uid://cxgf06r4dx58v" path="res://scenes/heal_potion.tscn" id="2_48uji"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_lpnxe"]
 [ext_resource type="PackedScene" uid="uid://3jgwq85fi4vy" path="res://scenes/drop_ak.tscn" id="2_s8mdy"]
+[ext_resource type="PackedScene" uid="uid://cnnsggfx2ie8m" path="res://scenes/nuke.tscn" id="3_uoanf"]
+[ext_resource type="PackedScene" uid="uid://ba1cbcs652eyo" path="res://scenes/stgn_ammo.tscn" id="4_hjmbb"]
+[ext_resource type="PackedScene" uid="uid://dxy60dtkpj1rp" path="res://scenes/ak_ammo.tscn" id="5_q5ic4"]
 [ext_resource type="AudioStream" uid="uid://bbb7gy64b64qc" path="res://assets/Combat and Gore/kick.wav" id="5_s8mdy"]
+[ext_resource type="PackedScene" uid="uid://brre8s65t8jyg" path="res://scenes/gun_ammo.tscn" id="6_1ehg4"]
+[ext_resource type="PackedScene" uid="uid://76ih3oal6fyu" path="res://scenes/exp_gem.tscn" id="7_ablen"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_48uji"]
 atlas = ExtResource("2_lpnxe")
@@ -86,6 +92,14 @@ script = ExtResource("1_7dcje")
 speed = 175.0
 max_health = 10.0
 elite_chance = 0.103
+freeze_drop_scene = ExtResource("2_1xejb")
+nuke_drop_scene = ExtResource("3_uoanf")
+stgn_ammo_scene = ExtResource("4_hjmbb")
+ak_ammo_scene = ExtResource("5_q5ic4")
+gun_ammo_scene = ExtResource("6_1ehg4")
+exp_gem_scene = ExtResource("7_ablen")
+freeze_drop_chance = 0.1
+nuke_drop_chance = 0.05
 ak_drop_scene = ExtResource("2_s8mdy")
 drops_heal_poitons = true
 health_potion_scene = ExtResource("2_48uji")

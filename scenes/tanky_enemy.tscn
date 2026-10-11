@@ -2,9 +2,15 @@
 
 [ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_vfn1x"]
 [ext_resource type="PackedScene" uid="uid://ba1cbcs652eyo" path="res://scenes/stgn_ammo.tscn" id="2_i3d4j"]
+[ext_resource type="PackedScene" uid="uid://b4fd8xkxfkdoa" path="res://assets/magnet.tscn" id="2_ras0m"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_scss8"]
 [ext_resource type="PackedScene" uid="uid://3jgwq85fi4vy" path="res://scenes/drop_ak.tscn" id="2_vf4il"]
+[ext_resource type="PackedScene" uid="uid://c7cyyt0i0h3ma" path="res://scenes/freeze_drop.tscn" id="3_xapwp"]
+[ext_resource type="PackedScene" uid="uid://cnnsggfx2ie8m" path="res://scenes/nuke.tscn" id="4_3kyp3"]
 [ext_resource type="AudioStream" uid="uid://bbb7gy64b64qc" path="res://assets/Combat and Gore/kick.wav" id="4_vf4il"]
+[ext_resource type="PackedScene" uid="uid://dxy60dtkpj1rp" path="res://scenes/ak_ammo.tscn" id="6_7p673"]
+[ext_resource type="PackedScene" uid="uid://brre8s65t8jyg" path="res://scenes/gun_ammo.tscn" id="7_qmiis"]
+[ext_resource type="PackedScene" uid="uid://76ih3oal6fyu" path="res://scenes/exp_gem.tscn" id="8_8hitj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vf4il"]
 atlas = ExtResource("2_scss8")
@@ -83,10 +89,18 @@ size = Vector2(8, 14)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_vfn1x")
+drop_magnet_scene = ExtResource("2_ras0m")
 speed = 75.0
 max_health = 50.0
 elite_chance = 0.09
+freeze_drop_scene = ExtResource("3_xapwp")
+nuke_drop_scene = ExtResource("4_3kyp3")
 stgn_ammo_scene = ExtResource("2_i3d4j")
+ak_ammo_scene = ExtResource("6_7p673")
+gun_ammo_scene = ExtResource("7_qmiis")
+exp_gem_scene = ExtResource("8_8hitj")
+freeze_drop_chance = 0.1
+nuke_drop_chance = 0.05
 ak_drop_scene = ExtResource("2_vf4il")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=395428702]

@@ -46,7 +46,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_t2asc")
 }],
 "loop": 0,
-"name": &"die",
+"name": &"death",
 "speed": 5.0
 }, {
 "frames": [{
@@ -84,17 +84,17 @@ stgn_ammo_scene = ExtResource("4_jywxv")
 ak_ammo_scene = ExtResource("5_1x65w")
 gun_ammo_scene = ExtResource("6_n4nl8")
 exp_gem_scene = ExtResource("7_xhwqk")
-nuke_drop_chance = 0.0
+freeze_drop_chance = 0.1
+nuke_drop_chance = 0.05
 ak_drop_scene = ExtResource("8_p2naf")
 stgn_drop_scene = ExtResource("9_07eek")
 health_potion_scene = ExtResource("10_hbl0y")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1243794773]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1243794773 groups=["enemy"]]
 position = Vector2(0, -11)
 sprite_frames = SubResource("SpriteFrames_h621j")
-animation = &"running"
+animation = &"death"
 autoplay = "running"
-frame_progress = 0.9176018
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1142525357]
 position = Vector2(0.5, -4.5)
