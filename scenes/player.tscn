@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://dh0c6ekin26t" path="res://scenes/hit_particles.tscn" id="17_fulsm"]
 [ext_resource type="Texture2D" uid="uid://cfmsdmva7jqc" path="res://scenes/healthbarProgress.png" id="18_4ni07"]
 [ext_resource type="Texture2D" uid="uid://cputqp8cgjsd7" path="res://assets/Weapons/knife.png" id="18_fulsm"]
+[ext_resource type="Script" uid="uid://bkxf6a77bqjht" path="res://scenes/kill_count.gd" id="25_ke2ow"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("2_g2els")
@@ -542,6 +543,7 @@ offset_top = -50.0
 offset_right = 283.0
 offset_bottom = 3.0
 text = "0"
+script = ExtResource("25_ke2ow")
 
 [connection signal="body_entered" from="hand/sword" to="hand/sword" method="_on_body_entered"]
 [connection signal="area_entered" from="Knife" to="Knife" method="_on_area_entered"]

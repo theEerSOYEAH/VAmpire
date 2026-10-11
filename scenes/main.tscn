@@ -16,8 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://brre8s65t8jyg" path="res://scenes/gun_ammo.tscn" id="14_a8y0u"]
 [ext_resource type="PackedScene" uid="uid://dxy60dtkpj1rp" path="res://scenes/ak_ammo.tscn" id="15_jkv2x"]
 [ext_resource type="AudioStream" uid="uid://bs0x5tlasik2j" path="res://assets/Musical Effects/Roblox Doors Soundtrack Elevator Jam (Looped 10 Min) - Idiocrity (128k).mp3" id="16_jbj1t"]
-[ext_resource type="PackedScene" uid="uid://b4fd8xkxfkdoa" path="res://assets/magnet.tscn" id="17_muem4"]
 [ext_resource type="PackedScene" uid="uid://dvddycxg7ih3m" path="res://scenes/level_up_menu.tscn" id="16_muem4"]
+[ext_resource type="PackedScene" uid="uid://b4fd8xkxfkdoa" path="res://assets/magnet.tscn" id="17_muem4"]
 
 [sub_resource type="Resource" id="Resource_tefeu"]
 script = ExtResource("4_o6xl0")
@@ -27,6 +27,7 @@ metadata/_custom_type_script = "uid://nrlpxynp14r7"
 [sub_resource type="Resource" id="Resource_otmr2"]
 script = ExtResource("4_o6xl0")
 enemy_scene = ExtResource("5_jbj1t")
+count = 1
 metadata/_custom_type_script = "uid://nrlpxynp14r7"
 
 [sub_resource type="Resource" id="Resource_tbgi4"]
@@ -562,5 +563,6 @@ position = Vector2(415, 249)
 
 [node name="magnet" parent="." unique_id=1947293888 instance=ExtResource("17_muem4")]
 position = Vector2(302, 235)
+
 [node name="LevelUpMenu" parent="." unique_id=1525341240 instance=ExtResource("16_muem4")]
 visible = false

@@ -447,8 +447,8 @@ func die(should_drop_loot:bool = true) -> void:
 			$death.play()
 		await get_tree().create_timer(0.3).timeout
 
-	killed_enemies += 1
-	$"kill count".text = str(killed_enemies)
+	visible = false
+	GameManager.add_kill()
 
 	if drop_loot and should_drop_loot:
 		drop_potion()
