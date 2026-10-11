@@ -11,6 +11,8 @@ extends Area2D
 enum  State { ORBITING, FIRING, COOLDOWN}
 var current_state: State = State.ORBITING
 
+var knife_unlocked: bool = false
+
 var current_orbit_angle: float = 0.0
 var fire_direction: Vector2 = Vector2.RIGHT
 
@@ -20,8 +22,13 @@ var fire_direction: Vector2 = Vector2.RIGHT
 func  _ready() -> void:
 	area_entered.connect(_on_area_entered)
 	body_entered.connect(_on_body_entered)
+	visible = false
+	collision.set_deferred("disabled", true) 
 	
 func _physics_process(delta: float) -> void:
+	if not knife_unlocked:
+		return
+		
 	match  current_state:
 		State.ORBITING:
 			_process_orbit(delta)
@@ -98,3 +105,8 @@ func _on_body_entered(body: Node2D) -> void:
 				particles.global_position = global_position
 				get_tree().current_scene.add_child(particles)
 		start_cooldown()
+
+func unlock() -> void:
+	knife_unlocked = true
+	visible = true
+	collision.set_deferred("disabled", false)
