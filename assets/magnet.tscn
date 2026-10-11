@@ -1,22 +1,37 @@
 [gd_scene format=3 uid="uid://b4fd8xkxfkdoa"]
 
 [ext_resource type="Script" uid="uid://bxu72ecu0pxfw" path="res://magnet.gd" id="1_axep5"]
-[ext_resource type="Texture2D" uid="uid://18a45nts14nr" path="res://icon.svg" id="2_7iyrx"]
+[ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_axep5"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h621j"]
-size = Vector2(33, 26)
+[sub_resource type="CircleShape2D" id="CircleShape2D_8fc75"]
+radius = 15.787653
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_axep5"]
+atlas = ExtResource("2_axep5")
+region = Rect2(48, 306, 16, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e6q6n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_axep5")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="magnet" type="Area2D" unique_id=1947293888]
 collision_mask = 2
 script = ExtResource("1_axep5")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1410613442]
-position = Vector2(8.75, -12.500001)
-scale = Vector2(0.25390625, 0.19531251)
-texture = ExtResource("2_7iyrx")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1385292882]
-position = Vector2(8.5, -13)
-shape = SubResource("RectangleShape2D_h621j")
+position = Vector2(8, -14)
+shape = SubResource("CircleShape2D_8fc75")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=482978301]
+position = Vector2(8, -10)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_e6q6n")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
