@@ -3,15 +3,15 @@
 [ext_resource type="Script" uid="uid://b380lw6ckqlu2" path="res://nuke.gd" id="1_qnxym"]
 [ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="2_k3tt4"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y240t"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnxym"]
 atlas = ExtResource("2_k3tt4")
-region = Rect2(46, 304, 23, 19)
+region = Rect2(96, 270, 16, 18)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_h621j"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y240t")
+"texture": SubResource("AtlasTexture_qnxym")
 }],
 "loop": 1,
 "name": &"default",
@@ -26,7 +26,7 @@ collision_mask = 2
 script = ExtResource("1_qnxym")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=81490433]
-position = Vector2(8.776316, -7.25)
+position = Vector2(7, -9)
 scale = Vector2(1.7631578, 1.7631578)
 sprite_frames = SubResource("SpriteFrames_h621j")
 
