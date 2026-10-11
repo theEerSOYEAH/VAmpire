@@ -446,6 +446,16 @@ step = 0.01
 texture_under = ExtResource("7_ur7pv")
 texture_progress = ExtResource("18_4ni07")
 
+[node name="reload_label" type="Label" parent="CanvasLayer" unique_id=890792550]
+offset_left = 433.0
+offset_top = 553.0
+offset_right = 707.0
+offset_bottom = 591.0
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("14_4r5pv")
+theme_override_font_sizes/font_size = 32
+text = "PRESS R TO RELOAD"
+
 [node name="Player_Hurtbox" type="Area2D" parent="." unique_id=1813066408]
 collision_layer = 8
 collision_mask = 0
