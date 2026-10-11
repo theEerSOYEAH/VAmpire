@@ -17,7 +17,9 @@
 [ext_resource type="AudioStream" uid="uid://c0tj4ecmjtqks" path="res://assets/Weapons/harsh_thud.wav" id="13_jej6c"]
 [ext_resource type="FontFile" uid="uid://cta2eeoysdh3d" path="res://assets/LilitaOne-Regular.ttf" id="14_4r5pv"]
 [ext_resource type="AudioStream" uid="uid://bp1ebef7c4kyj" path="res://assets/Weapons/shot_muffled.wav" id="15_oprun"]
+[ext_resource type="Texture2D" uid="uid://doc81f0h2idt1" path="res://healthbarProgress.png" id="16_a38lo"]
 [ext_resource type="Script" uid="uid://cx5exfblt3x74" path="res://scenes/knife.gd" id="16_qfm1y"]
+[ext_resource type="Script" uid="uid://pybxto5qfi2a" path="res://scripts/exp_progress_bar.gd" id="17_4ni07"]
 [ext_resource type="PackedScene" uid="uid://dh0c6ekin26t" path="res://scenes/hit_particles.tscn" id="17_fulsm"]
 [ext_resource type="Texture2D" uid="uid://cputqp8cgjsd7" path="res://assets/Weapons/knife.png" id="18_fulsm"]
 
@@ -357,6 +359,22 @@ scale = Vector2(4, 4)
 texture_under = ExtResource("7_ur7pv")
 texture_progress = ExtResource("8_y4r1p")
 script = ExtResource("7_fjrip")
+
+[node name="Exp_Progress_Bar" type="TextureProgressBar" parent="CanvasLayer" unique_id=711520349]
+process_mode = 3
+texture_filter = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -258.0
+offset_top = 41.0
+offset_right = -194.0
+offset_bottom = 81.0
+grow_horizontal = 0
+scale = Vector2(4, 4)
+texture_under = ExtResource("7_ur7pv")
+texture_progress = ExtResource("16_a38lo")
+script = ExtResource("17_4ni07")
 
 [node name="ak_panel" type="Node2D" parent="CanvasLayer" unique_id=1442743830]
 visible = false
