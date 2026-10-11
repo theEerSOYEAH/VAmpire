@@ -8,6 +8,8 @@ var shake_timer = 0
 var player = null
 
 func _ready() -> void:
+	
+	add_to_group("camera")
 	if not is_instance_valid(player):
 		player = get_tree().current_scene.find_child("player", true, false)
 		if not is_instance_valid(player):
@@ -24,4 +26,13 @@ func _process(delta: float) -> void:
 		
 	
 func shake():
+	shake_timer = shake_max_time
+	strength = 2.0
+	shake_max_time = 0.2
+	
+	
+	
+func nuke_shake():
+	strength = 20.0
+	shake_max_time = 0.6
 	shake_timer = shake_max_time
