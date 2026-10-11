@@ -1,5 +1,14 @@
 extends CharacterBody2D
 
+
+@export var drop_loot : bool = true
+
+
+var killed_enemies : int= 0
+
+@export var drop_magnet_scene : PackedScene
+@export_range(0.0, 1.0) var magnet_drop_chance = 0.2
+
 @export var contact_damage: int = 1
 @export var speed: float = 100.0
 @export var max_health: float = 100.0
@@ -12,6 +21,7 @@ extends CharacterBody2D
 @export var noob_count = 4 
 
 var has_summoned = false
+var is_frozen : bool = false
 
 @export_category("elite")
 @export_range(0.0, 1.0) var elite_chance : float = 1.0
@@ -20,6 +30,8 @@ var has_summoned = false
 @export var elite_scale = 1.5
 @export var is_elite = false
 
+@export var freeze_drop_scene : PackedScene
+@export var nuke_drop_scene : PackedScene
 @export var stgn_ammo_scene : PackedScene
 @export var ak_ammo_scene : PackedScene
 @export var gun_ammo_scene : PackedScene
@@ -28,6 +40,8 @@ var has_summoned = false
 @export var exp_amount: int = 10
 @export_range(0.0, 1.0) var exp_drop_chance: float = 1.0
 
+@export_range(0.0, 1.0) var freeze_drop_chance:float=0.2
+@export_range(0.0, 1.0) var nuke_drop_chance: float = 0.2
 @export var potion_scenes : Array[PackedScene] = []
 @export_range(0.0, 1.0) var potion_drop_chance: float = 0.2
 @export var ak_drop_scene : PackedScene
@@ -50,6 +64,26 @@ var elite_number = 0
 
 @onready var damage_timer: Timer = $DamageTimer
 @onready var hitbox: Area2D = $Hitbox
+
+
+func freeze(duration: float):
+	if is_dying:
+		return
+	is_frozen = true
+	
+	if $AnimatedSprite2D.sprite_frames.has_animation("defuelt"):
+		$AnimatedSprite2D.pause()
+	if $AnimatedSprite2D.sprite_frames.has_animation("running"):
+		$AnimatedSprite2D.pause()
+	
+	$AnimatedSprite2D.modulate = Color(0.5, 0.8, 1.2)
+	
+	await get_tree().create_timer(duration).timeout
+	
+	if is_instance_valid(self) and not is_dying:
+		is_frozen = false
+		$AnimatedSprite2D.play()
+		$AnimatedSprite2D.modulate = Color(1,1,1)
 
 
 func summon_noobs():
@@ -137,6 +171,10 @@ func _on_damage_timer_timeout() -> void:
 	deal_damage()
 
 func deal_damage() -> void:
+	if is_frozen:
+		return
+	
+	
 	if is_instance_valid(player_ref):
 		var target = player_ref.owner
 		if target and target.has_method("take_damage"):
@@ -144,7 +182,7 @@ func deal_damage() -> void:
 		
 
 func _physics_process(delta: float) -> void:
-	if is_dying:
+	if is_dying or is_frozen:
 		return
 	
 	
@@ -204,6 +242,53 @@ func drop_heal_potion():
 	potion.global_position = global_position
 	get_tree().current_scene.add_child(potion)
 
+
+func drop_freeze():
+	if freeze_drop_scene == null:
+		return
+	
+	var chance = freeze_drop_chance
+	
+	if is_instance_valid(player) and player.luck_activate:
+		chance *= player.luck_multiplier
+	chance = min(chance, 1)
+	if randf()> chance:
+		return
+	
+	var freeze= freeze_drop_scene.instantiate()
+	freeze.global_position = global_position
+	get_tree().current_scene.add_child(freeze)
+
+
+func drop_magnet():
+	if drop_magnet_scene == null:
+		return
+	var chance = magnet_drop_chance
+	if is_instance_valid(player) and player.luck_activate:
+		chance *= player.luck_multiplier
+	chance = min(chance, 1)
+	if randf()> chance:
+		return
+	var magnet = drop_magnet_scene.instantiate()
+	magnet.global_position = global_position
+	get_tree().current_scene.add_child(magnet)
+
+
+func drop_nuke():
+	if nuke_drop_scene == null:
+		return
+	
+	var chance = nuke_drop_chance
+	
+	if is_instance_valid(player) and player.luck_activate:
+		chance *= player.luck_multiplier
+	chance = min(chance, 1)
+	if randf()> chance:
+		return
+	
+	var nuke = nuke_drop_scene.instantiate()
+	nuke.global_position = global_position
+	get_tree().current_scene.add_child(nuke)
 
 
 
@@ -337,7 +422,7 @@ func  drop_exp() -> void:
 	
 	get_tree().current_scene.add_child(exp_gem)
 
-func die() -> void:
+func die(should_drop_loot:bool = true) -> void:
 	if is_dying:
 		return
 	is_dying = true
@@ -362,22 +447,27 @@ func die() -> void:
 			$death.play()
 		await get_tree().create_timer(0.3).timeout
 
+	killed_enemies += 1
+	$"kill count".text = str(killed_enemies)
+
+	if drop_loot and should_drop_loot:
+		drop_potion()
+		drop_heal_potion()
+		if elite_number == 1:
+			drop_ak()
+		elif elite_number == 2:
+			drop_stgn()
+		drop_gun_ammo()
+		drop_ak_ammo()
+		drop_stgn_ammo()
+		drop_nuke()
+		drop_freeze()
 	
-	drop_potion()
-	drop_heal_potion()
-	if elite_number == 1:
-		drop_ak()
-	elif elite_number == 2:
-		drop_stgn()
-	drop_gun_ammo()
-	drop_ak_ammo()
-	drop_stgn_ammo()
-	
-	
-	drop_exp()
+		drop_exp()
+		drop_magnet()
 	
 	queue_free()
-
+	
 
 		
 #maybe if we improve this game we can add a lot of things fr fr f r fr 
