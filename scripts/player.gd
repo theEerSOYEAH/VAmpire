@@ -444,7 +444,7 @@ func unlock_stgn():
 	stgn_unlocked = true
 
 func unlock_knife():
-	knife_unlocked = true
+	$Knife.unlock()
 
 func add_xp(amount: int) -> void:
 	current_xp += amount
