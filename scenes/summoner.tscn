@@ -68,8 +68,7 @@ shape = SubResource("CircleShape2D_h621j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=482325463]
 sprite_frames = SubResource("SpriteFrames_h621j")
-frame = 1
-frame_progress = 1.0
+autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=309126994]
 position = Vector2(7, -4)
