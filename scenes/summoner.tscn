@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://kpl4t41s1wyr"]
+
+[ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="1_08fma"]
+[ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_ory83"]
+[ext_resource type="PackedScene" uid="uid://bpkmrtibqy7im" path="res://scenes/noob.tscn" id="2_jfiis"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h621j"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ev7wa"]
+atlas = ExtResource("1_08fma")
+region = Rect2(270, 170, 30, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ory83"]
+atlas = ExtResource("1_08fma")
+region = Rect2(300, 170, 30, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h621j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ev7wa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ory83")
+}],
+"loop": 0,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h621j"]
+size = Vector2(18, 18)
+
+[node name="summoner" type="CharacterBody2D" unique_id=1917083692]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_ory83")
+max_health = 20.0
+is_summoner = true
+noob_scene = ExtResource("2_jfiis")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=237868484]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=840162128]
+position = Vector2(7, -4)
+shape = SubResource("CircleShape2D_h621j")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=482325463]
+sprite_frames = SubResource("SpriteFrames_h621j")
+frame = 1
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=309126994]
+position = Vector2(7, -4)
+shape = SubResource("RectangleShape2D_h621j")
+
+[node name="DamageTimer" type="Timer" parent="." unique_id=1151066973]

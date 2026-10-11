@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://bpkmrtibqy7im"]
+
+[ext_resource type="Texture2D" uid="uid://1ksuajrhwef4" path="res://assets/dungeon Crawlermkup.png" id="1_egph7"]
+[ext_resource type="Script" uid="uid://chn1q00fui8pw" path="res://scripts/enemy.gd" id="1_tlehe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yf6fp"]
+atlas = ExtResource("1_egph7")
+region = Rect2(160, 192, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2asc"]
+atlas = ExtResource("1_egph7")
+region = Rect2(176, 192, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlehe"]
+atlas = ExtResource("1_egph7")
+region = Rect2(160, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwf4u"]
+atlas = ExtResource("1_egph7")
+region = Rect2(176, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtge5"]
+atlas = ExtResource("1_egph7")
+region = Rect2(192, 160, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnh1w"]
+atlas = ExtResource("1_egph7")
+region = Rect2(208, 160, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h621j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yf6fp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2asc")
+}],
+"loop": 0,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlehe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwf4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wtge5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnh1w")
+}],
+"loop": 1,
+"name": &"running",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h621j"]
+size = Vector2(13, 17)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_po753"]
+size = Vector2(10, 18)
+
+[node name="noob" type="CharacterBody2D" unique_id=1466237934]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_tlehe")
+max_health = 10.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1243794773]
+position = Vector2(0, -11)
+sprite_frames = SubResource("SpriteFrames_h621j")
+animation = &"running"
+autoplay = "running"
+frame_progress = 0.9176018
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1142525357]
+position = Vector2(0.5, -4.5)
+shape = SubResource("RectangleShape2D_h621j")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1769576522]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1678544315]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_po753")
+
+[node name="DamageTimer" type="Timer" parent="." unique_id=71060112]
+wait_time = 0.5
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]
